@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 100px;
+    margin: 5px;
+    padding: 5px;
+  }
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans";
+  a{
+    text-decoration: none;
+    color:#151515
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-family: 'Fira Code';
+  text-align: center;
+  color: #151515;
+}
+
+form {
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background-color: #f8f8f8;
+  border-radius: 12.5px;
+  padding: 10px;
+}
+
+input {
+  box-sizing: border-box;
+  padding-left: 15px;
+  margin: 5px;
+  border: none;
+  height: 45px;
+  border-radius: 5px;
+  transition: all 0.5s ease;
+}
+
+input:hover::placeholder {
+  transition: all 0.5s ease;
+  color: #151515;
+}
+
+.action-button {
+  border: none;
+  cursor: pointer;
+  background-color: rgb(101, 130, 255);
+  margin: 5px;
+  color: #fff;
+  font-family: 'Fira Code';
+  height: 45px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 1s ease;
+}
+
+.action-button:hover {
+  transition: all 1s ease;
+  background-color: rgb(77, 108, 249);
+  font-size: 17px;
+}
+
+header{
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 50px;
+    .joinject-logo{
+        display: flex;
+        justify-content: left;
+        font-weight: 575;
+        font-size: 28px;
+        span{
+            color: rgb(101, 130, 255);
+        }
+    }
+    .header-nav{
+        display: flex;
+        gap: 15px;
+        height: 50px;
+        align-items: center;
+        a{
+            transition: all 1s ease;
+            font-weight: 600;
+            color: #656464;
+        }
+        a:hover{
+            transition: all 1s ease;
+            color: #151515;
+        }
+
+    }
+    .account{
+        display: flex;
+        height: 50px;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+        .account-button{
+          background-color: rgb(101, 130, 255);
+          color: #fff;
+          height: 50px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Fira Code';
+          width: 100px;
+        }
+        .icon-style{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img{
+            width: 55px;
+            height: 55px;
+          }
+
+        }
+        .name-style{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(255, 255, 255);
+            background-color: rgb(101, 130, 255);
+            border-radius: 5px;
+            height: 100%;
+            width: 100px;
+            font-family: 'Fira Code';
+            transition: all 1s ease;
+        }
+        .name-style:hover{
+            transition: all 1s ease;
+            background-color: rgb(77, 108, 249);
+        }
+    }
+}
+
+.account-check {
+  display: flex;
+  font-size: 14px;
+  margin-left: 1rem;
+}
+
+.account-check p {
+  color: #656464;
+}
+
+span.account-action {
+  display: flex;
+  align-items: center;
+  color: rgb(101, 130, 255);
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 1s ease;
+}
+
+span.account-action:hover {
+  transition: all 1s ease;
+  color: rgb(77, 108, 249);
+}
+
+.error-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 0.875rem;
+  border: 1px red solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  animation: slideDown 0.3s ease-out forwards;
+  overflow: hidden;
+}
+
+.input-error {
+  border: 1px solid #ff4d4f;
+}
+
+@media (max-width: 650px) {
+  header {
+    transition: all 0.3s ease;
+    /* Делаем флекс-контейнер с обтеканием и выравниванием по горизонтали */
+    display: flex;
+    flex-wrap: wrap;         /* разрешаем перенос элементов */
+    flex-direction: row;     /* располагаем элементы в строку, если возможно */
+    justify-content: space-between;
+    align-items: center;
+    height: auto;            /* убираем фиксированную высоту, чтобы контейнер адаптировался */
+    padding: 10px;           /* можно задать отступы по необходимости */
+  }
+
+  /* Логотип и блок с кнопками регистрации оставляем на первой строке */
+  .joinject-logo,
+  .account {
+    order: 1;
+  }
+
+  /* Навигация принудительно уходит на вторую строку */
+  .header-nav {
+    order: 2;
+    flex-basis: 100%;        /* занимает всю ширину и переходит на новую строку */
+    margin-top: 10px;        /* отступ сверху для отделения от верхнего ряда */
+    display: flex;
+    justify-content: space-around; /* можно выровнять ссылки по центру или другим способом */
+  }
+
+  form{
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 250px) {
+  header{
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    height: 250px;
+    .joinject-logo{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .header-nav{
+      display: flex;
+      flex-direction: column;
+      height: 100px;
+    }
+    .account{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100px;
+      a{
+        height: 40px;
+        align-items: center;
+      }
+      }
+  }
+}
