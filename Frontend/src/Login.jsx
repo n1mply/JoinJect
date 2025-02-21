@@ -18,6 +18,7 @@ export default function Login({ setIsNewUser, apiClient }) {
       const response = await apiClient.post("/login", form);
       setIsNewUser(false);
       navigate("/"); // Перенаправление на главную страницу
+      location.reload()
     } catch (error) {
       if (error.response) {
         if (error.response.status === 400) {
@@ -44,7 +45,7 @@ export default function Login({ setIsNewUser, apiClient }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-project-form">
         <h1>Login</h1>
         {errors.length > 0 && (
           <div className="error-block">

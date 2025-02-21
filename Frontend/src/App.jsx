@@ -10,6 +10,7 @@ import axios from "axios";
 import "./App.css";
 import Profile from "./Profile";
 import CreateProject from "./CreateProject";
+import GitHubCallback from "./GitHubCallback";
 
 export default function App() {
   const [isNewUser, setIsNewUser] = useState(true);
@@ -46,7 +47,8 @@ export default function App() {
           <Route path="/community" element={<Community apiClient={apiClient} />} />
           <Route path="/user/" element={<Profile apiClient={apiClient} />} />
           <Route path="/create" element={<CreateProject apiClient={apiClient} />} />
-          <Route path="*" element={<Navigate to="/" />} /> {/* Перенаправление на главную для несуществующих маршрутов */}
+          <Route path="/auth/github/callback" element={<GitHubCallback apiClient={apiClient}/>} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </Router>

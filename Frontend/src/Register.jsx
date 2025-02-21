@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import githubIcon from './icons/github-mark-white.svg'
 
 export default function Register({ setIsNewUser, apiClient }) {
   const [form, setForm] = useState({ username: "", mail: "", password: "" });
   const [errors, setErrors] = useState([]); 
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +21,8 @@ export default function Register({ setIsNewUser, apiClient }) {
       console.log(form);
       await apiClient.post("/login", { mail: form.mail, password: form.password });
       setIsNewUser(false);
-      navigate("/"); // Перенаправление на главную страницу после регистрации
+      navigate("/");
+      location.reload()
     } catch (error) {
       if (error.response) {
         if (error.response.status === 400) {
@@ -41,13 +43,19 @@ export default function Register({ setIsNewUser, apiClient }) {
     }
   };
 
+  
+
+  const handleGitHubAuth = () => {
+    window.location.href = "http://localhost:8000/auth/github";
+  };
+
   const getInputErrorClass = (field) => {
     return errors.some((err) => err.field === field) ? "input-error" : "";
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-project-form">
         <h1>Register</h1>
         {errors.length > 0 && (
           <div className="error-block">
@@ -78,6 +86,11 @@ export default function Register({ setIsNewUser, apiClient }) {
           className={getInputErrorClass("password")}
         />
         <button className="action-button" type="submit">Sign Up</button>
+        <button className="github-button" onClick={handleGitHubAuth}>
+          <div>
+            <img src={githubIcon}/><p>Continue with GitHub</p>
+          </div>
+        </button>
         <div className="account-check">
           <p>Have an account?</p>
           <span className="account-action" onClick={() => navigate("/signin")}>
@@ -85,6 +98,7 @@ export default function Register({ setIsNewUser, apiClient }) {
           </span>
         </div>
       </form>
+
     </>
   );
 }

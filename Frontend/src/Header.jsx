@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Add_icon from './icons/add_icon.svg'
+import addIcon from './icons/add_icon.svg'
 
 export default function Header({ apiClient, isNewUser }) {
   const [username, setUsername] = useState("");
@@ -31,7 +31,7 @@ export default function Header({ apiClient, isNewUser }) {
       <div className="account">
         {!isNewUser ? (
           <>
-            <Link to="/create" className="icon-style"><img src={Add_icon} alt="Create Project" /></Link>
+            <Link to="/create" className="icon-style"><img src={addIcon} alt="Create Project" /></Link>
             <Link to="/user/" className="name-style">{username}</Link>
           </>
         ) : (

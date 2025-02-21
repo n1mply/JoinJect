@@ -1,19 +1,20 @@
-from fastapi import FastAPI, HTTPException, Depends, Request, Response
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
-from jose import JWTError, jwt
+from jose import jwt
 from pydantic import BaseModel, EmailStr
-from datetime import datetime, timedelta
 from typing import Annotated
 from annotated_types import MaxLen, MinLen
-import asyncio
+import json
 
 import uvicorn
 from database import create_user, verify_user, get_user_data
-from generate_secret_key import generate_secret_key
+from githubOauth import github_router
+from access_token_actions import create_access_token, decode_access_token
+from config import SECRET_KEY, ALGORITHM
 
 # App and CORS setup
 app = FastAPI()
+app.include_router(github_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -21,11 +22,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-SECRET_KEY = generate_secret_key()
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 999999
 
 # Models
 class RegisterModel(BaseModel):
@@ -37,23 +33,7 @@ class LoginModel(BaseModel):
     mail: EmailStr
     password: Annotated[str, MinLen(8), MaxLen(100)]
 
-# Utility functions for JWT
-def create_access_token(data: dict):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
 
-def decode_access_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise HTTPException(status_code=401, detail="Invalid token")
-        return username
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
 
 # Endpoints
 @app.post("/register")
@@ -83,7 +63,7 @@ async def get_current_user(request: Request):
     return {"username": username}
 
 @app.get("/auth/check-token")
-def check_token(request: Request):
+async def check_token(request: Request):
     token = request.cookies.get("access_token")
     if not token:
         print("Token is missing in the request cookies.")
@@ -97,6 +77,12 @@ def check_token(request: Request):
     except jwt.JWTError as e:
         print("Invalid token:", e)
         raise HTTPException(status_code=401, detail="Invalid token")
+
+@app.get("/data")
+async def get_data():
+    with open('data/options.json', 'r') as file:
+        data = json.load(file)
+        return data
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

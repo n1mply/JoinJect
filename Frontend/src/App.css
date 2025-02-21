@@ -49,6 +49,28 @@ form {
   background-color: #f8f8f8;
   border-radius: 12.5px;
   padding: 10px;
+  .create-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+      width: 97%;
+      height: 50px;
+      border: none;
+      color: #fff;
+      background-color: #6582ff;
+      border-radius: 5px;
+      font-family: 'Fira Code';
+      font-size: 24px;
+      cursor: pointer;
+      transition: background-color 0.5s ease;
+    }
+    button:hover{
+      transition: background-color 0.5s ease;
+      background-color: rgb(77, 108, 249);
+    }
+  }
+
 }
 
 input {
@@ -58,12 +80,90 @@ input {
   border: none;
   height: 45px;
   border-radius: 5px;
-  transition: all 0.5s ease;
+  transition: color 0.5s ease;
 }
 
 input:hover::placeholder {
-  transition: all 0.5s ease;
+  transition: color 0.5s ease;
   color: #151515;
+}
+
+.create-project-form{
+  width: 550px;
+}
+
+.github-button{
+  border: none;
+  cursor: pointer;
+  background-color: rgb(18, 18, 18);
+  margin: 5px;
+  color: #fff;
+  font-family: 'Fira Code';
+  height: 45px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 1s ease;
+  div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    p{
+      margin: 0;
+    }
+  }
+  img{
+    width: 25px;  
+  }
+}
+
+textarea{
+  max-width: 95%;
+  min-width: 95%;
+  max-height: 350px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
+}
+
+textarea:focus{
+  outline: none;
+  border:2px solid #6582ff
+}
+
+label{
+  width: 95%;
+  justify-content: left;
+  margin: 5px;
+}
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  input{
+    width: 97%;
+    border: 1px solid #d9d9d9;
+  }
+  input:focus {
+    outline: none;
+    border:2px solid #6582ff
+  } 
+  .skills-select{
+    width: 97%;
+  }
+  .member-select-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .action-button {
@@ -143,6 +243,11 @@ header{
           img{
             width: 55px;
             height: 55px;
+            transition: scale 0.3s ease;
+          }
+          img:hover{
+            transition: scale 0.3s ease;
+            scale: 1.1;
           }
 
         }
@@ -208,35 +313,36 @@ span.account-action:hover {
   border: 1px solid #ff4d4f;
 }
 
+
+
 @media (max-width: 650px) {
   header {
     transition: all 0.3s ease;
-    /* Делаем флекс-контейнер с обтеканием и выравниванием по горизонтали */
     display: flex;
-    flex-wrap: wrap;         /* разрешаем перенос элементов */
-    flex-direction: row;     /* располагаем элементы в строку, если возможно */
+    flex-wrap: wrap;        
+    flex-direction: row;     
     justify-content: space-between;
     align-items: center;
-    height: auto;            /* убираем фиксированную высоту, чтобы контейнер адаптировался */
-    padding: 10px;           /* можно задать отступы по необходимости */
+    height: auto;            
+    padding: 10px;
   }
 
-  /* Логотип и блок с кнопками регистрации оставляем на первой строке */
+
   .joinject-logo,
   .account {
     order: 1;
   }
 
-  /* Навигация принудительно уходит на вторую строку */
+
   .header-nav {
     order: 2;
-    flex-basis: 100%;        /* занимает всю ширину и переходит на новую строку */
-    margin-top: 10px;        /* отступ сверху для отделения от верхнего ряда */
+    flex-basis: 100%;        
+    margin-top: 10px;       
     display: flex;
-    justify-content: space-around; /* можно выровнять ссылки по центру или другим способом */
+    justify-content: space-around; 
   }
 
-  form{
+  .create-project-form{
     transition: all 0.3s ease;
     width: 100%;
   }
@@ -274,3 +380,4 @@ span.account-action:hover {
       }
   }
 }
+
