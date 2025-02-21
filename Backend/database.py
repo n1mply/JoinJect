@@ -45,13 +45,10 @@ async def get_user_data(mail: str) -> str:
 
 async def create_user_from_github(user_data: dict):
     try:
-        # Проверяем, существует ли пользователь с таким username
         existing_user = await users_collection.find_one({"username": user_data["username"]})
         if existing_user:
             return {"user_id": str(existing_user["_id"])}
-
-        # Создаём нового пользователя
-        user_data["password"] = ""  # Пароль не нужен для OAuth
+        user_data["password"] = ""
         result = await users_collection.insert_one(user_data)
         return {"user_id": str(result.inserted_id)}
     except Exception as e:

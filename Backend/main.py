@@ -12,7 +12,6 @@ from githubOauth import github_router
 from access_token_actions import create_access_token, decode_access_token
 from config import SECRET_KEY, ALGORITHM
 
-# App and CORS setup
 app = FastAPI()
 app.include_router(github_router)
 app.add_middleware(

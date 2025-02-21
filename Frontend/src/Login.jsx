@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login({ setIsNewUser, apiClient }) {
   const [form, setForm] = useState({ mail: "", password: "" });
   const [errors, setErrors] = useState([]);
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,7 +17,7 @@ export default function Login({ setIsNewUser, apiClient }) {
     try {
       const response = await apiClient.post("/login", form);
       setIsNewUser(false);
-      navigate("/"); // Перенаправление на главную страницу
+      navigate("/"); 
       location.reload()
     } catch (error) {
       if (error.response) {

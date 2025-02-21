@@ -16,12 +16,12 @@ export default function GitHubCallback({ apiClient }) {
         }
 
         const response = await apiClient.get(`/auth/github/callback?code=${code}`, {
-          withCredentials: true,  // Включаем передачу кук
+          withCredentials: true,  
         });
         console.log("Auth response:", response.data);
 
         if (response.data.message === "Authentication successful") {
-          navigate("/");  // Перенаправляем на главную страницу
+          navigate("/");
           location.reload()
         } else {
           throw new Error("Authentication failed");

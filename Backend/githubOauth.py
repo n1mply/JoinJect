@@ -22,7 +22,6 @@ async def github_callback(code: str, response: Response):
     
     try:
         async with httpx.AsyncClient() as client:
-            # Exchange code for access token
             token_response = await client.post(
                 "https://github.com/login/oauth/access_token",
                 headers={"Accept": "application/json"},
@@ -61,7 +60,6 @@ async def github_callback(code: str, response: Response):
                 logger.error(error_msg)
                 raise HTTPException(status_code=400, detail=error_msg)
 
-            # Create user in DB
             user = {
                 "username": username,
                 "mail": user_data.get("email", f"{username}@no-email.com"),
@@ -73,11 +71,9 @@ async def github_callback(code: str, response: Response):
                 logger.error(f"Database error: {result['error']}")
                 raise HTTPException(status_code=500, detail=result["error"])
 
-            # Create JWT
             jwt_token = create_access_token({"sub": username})
             logger.info(f"Successfully authenticated user: {username}")
 
-            # Устанавливаем токен в куки
             response.set_cookie(
                 key="access_token",
                 value=jwt_token,
