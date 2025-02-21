@@ -21,13 +21,11 @@ export default function CreateProject({ apiClient }) {
     setChangeSkills(selectedOption);
   };
 
-  // Обработчик выбора грейда
   const handleChangeMembers = (selectedOption, index) => {
     const newSelectedGrades = [...selectedGrades];
     newSelectedGrades[index] = selectedOption;
     setSelectedGrades(newSelectedGrades);
 
-    // Если выбран грейд, добавляем новый селект
     if (selectedOption && index === selectedGrades.length - 1) {
       setSelectedGrades([...newSelectedGrades, null]);
     }

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Response
+from fastapi import APIRouter, HTTPException, Response
 from fastapi.responses import RedirectResponse
 import httpx
 import logging
@@ -46,7 +46,6 @@ async def github_callback(code: str, response: Response):
                 logger.error(error_msg)
                 raise HTTPException(status_code=400, detail=error_msg)
 
-            # Get user data
             user_response = await client.get(
                 "https://api.github.com/user",
                 headers={"Authorization": f"Bearer {access_token}"},
