@@ -2,6 +2,7 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import timer from "./icons/timer.svg";
 import dateRange from "./icons/date_range.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateProject({ apiClient }) {
   const [projectName, setProjectName] = useState("");
@@ -10,6 +11,9 @@ export default function CreateProject({ apiClient }) {
   const [selectedGrades, setSelectedGrades] = useState([null]);
   const [skills, setSkills] = useState([]);
   const [members, setMembers] = useState([]);
+  const [timeToComplite, setTimeToComplite] = useState(3);
+  const [timeToStart, setTimeToStart] = useState(1);
+  const navigate = useNavigate();
 
   const handleChangeProjectName = (e) => {
     setProjectName(e.target.value);
@@ -35,11 +39,28 @@ export default function CreateProject({ apiClient }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(
-      `Name ${projectName}\nDescription ${description}\nSkills${changeSkills}\nMembers${selectedGrades}\nTime`
-    );
-  };
 
+    const projectData = {
+      name: projectName,
+      description: description,
+      skills: changeSkills.map((skill) => skill.value),
+      members: selectedGrades
+        .filter((grade) => grade !== null)
+        .map((grade) => grade.value),
+      time_to_complite: timeToComplite.toString(),
+      time_to_start: timeToStart.toString(),
+    };
+
+    try {
+      const response = await apiClient.post("/project/create", projectData);
+      if (response.data.message) {
+        console.log("created!");
+        navigate("/user/");
+      }
+    } catch (error) {
+      console.error("Error creating project:", error.response?.data);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -139,7 +160,9 @@ export default function CreateProject({ apiClient }) {
           </label>
           {selectedGrades.map((grade, index) => (
             <div key={index} className="member-select-container">
-              <label style={{ fontWeight: 600 }} htmlFor={`Member${index + 1}`}>Member {index + 1}</label>
+              <label style={{ fontWeight: 600 }} htmlFor={`Member${index + 1}`}>
+                Member {index + 1}
+              </label>
               <Select
                 id={`Member${index + 1}`}
                 isClearable
@@ -175,6 +198,7 @@ export default function CreateProject({ apiClient }) {
                 type="text"
                 minLength={1}
                 maxLength={3}
+                onChange={(e) => setTimeToComplite(e.target.value)}
               />
             </div>
           </div>
@@ -184,7 +208,13 @@ export default function CreateProject({ apiClient }) {
             </label>
             <div className="input-content">
               <img src={dateRange} alt="" />
-              <input id="TimeToStart" type="text" />
+              <input
+                id="TimeToStart"
+                type="text"
+                minLength={1}
+                maxLength={2}
+                onChange={(e) => setTimeToStart(e.target.value)}
+              />
             </div>
           </div>
         </div>

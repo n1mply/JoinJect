@@ -436,3 +436,77 @@ span.account-action:hover {
     }
   }
 }
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Расстояние между карточками */
+}
+
+.project {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  width: 60%;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.project p {
+  margin: 0 0 16px;
+  color: #666;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Ограничиваем описание до 3 строк */
+  -webkit-box-orient: vertical;
+}
+
+.skills, .members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.skill, .member {
+  padding: 6px 12px;
+  background-color: #6582ff;
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.time-wrapper {
+  margin: 16px 0;
+  color: #555;
+}
+
+.time-wrapper p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.project a {
+  color: #6582ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.project a:hover {
+  text-decoration: underline;
+}
