@@ -139,7 +139,7 @@ export default function CreateProject({ apiClient }) {
           </label>
           {selectedGrades.map((grade, index) => (
             <div key={index} className="member-select-container">
-              <label htmlFor={`Member${index + 1}`}>Member {index + 1}</label>
+              <label style={{ fontWeight: 600 }} htmlFor={`Member${index + 1}`}>Member {index + 1}</label>
               <Select
                 id={`Member${index + 1}`}
                 isClearable
