@@ -1,5 +1,7 @@
-import Select from 'react-select';
-import { useEffect, useState } from 'react';
+import Select from "react-select";
+import { useEffect, useState } from "react";
+import timer from "./icons/timer.svg";
+import dateRange from "./icons/date_range.svg";
 
 export default function CreateProject({ apiClient }) {
   const [projectName, setProjectName] = useState("");
@@ -35,8 +37,8 @@ export default function CreateProject({ apiClient }) {
     e.preventDefault();
     console.log(
       `Name ${projectName}\nDescription ${description}\nSkills${changeSkills}\nMembers${selectedGrades}\nTime`
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,17 +89,13 @@ export default function CreateProject({ apiClient }) {
       ...provided,
       color: getGradeColor(state.data.label),
     }),
-    control: (provided) => ({
-      ...provided,
-      borderColor: "#6582ff",
-    }),
   };
 
   return (
     <>
       <h1>Create your project</h1>
       <form className="create-project-form" onSubmit={handleSubmit}>
-        <div style={{fontWeight:600}} className="form-container">
+        <div style={{ fontWeight: 600 }} className="form-container">
           <label htmlFor="ProjectName">Project name</label>
           <input
             type="text"
@@ -106,7 +104,7 @@ export default function CreateProject({ apiClient }) {
             onChange={handleChangeProjectName}
           />
         </div>
-        <div style={{fontWeight:600}} className="form-container">
+        <div style={{ fontWeight: 600 }} className="form-container">
           <label htmlFor="Description">Description</label>
           <textarea
             name="Description"
@@ -116,7 +114,7 @@ export default function CreateProject({ apiClient }) {
             maxLength={500}
           ></textarea>
         </div>
-        <div style={{fontWeight:600}} className="form-container">
+        <div style={{ fontWeight: 600 }} className="form-container">
           <label htmlFor="Skills">Skills for this project</label>
           <Select
             options={skillsSelection}
@@ -136,14 +134,18 @@ export default function CreateProject({ apiClient }) {
           />
         </div>
         <div className="form-container">
-          <label style={{fontWeight:600}} htmlFor="Members">Participants required for the project:</label>
+          <label style={{ fontWeight: 600 }} htmlFor="Members">
+            Participants required for the project:
+          </label>
           {selectedGrades.map((grade, index) => (
             <div key={index} className="member-select-container">
               <label htmlFor={`Member${index + 1}`}>Member {index + 1}</label>
               <Select
                 id={`Member${index + 1}`}
                 isClearable
-                onChange={(selectedOption) => handleChangeMembers(selectedOption, index)}
+                onChange={(selectedOption) =>
+                  handleChangeMembers(selectedOption, index)
+                }
                 options={gradesSelection}
                 value={grade}
                 name={`Member${index + 1}`}
@@ -161,11 +163,33 @@ export default function CreateProject({ apiClient }) {
             </div>
           ))}
         </div>
-        <div className="form-container time-container">
-          <label style={{fontWeight:600}} htmlFor="Time">Time to complete the project (in days)</label>
-          <input id="Time" type="text" minLength={1} maxLength={2}/>
+        <div className="time-selection">
+          <div className="time-container">
+            <label style={{ fontWeight: 600 }} htmlFor="TimeToComplite">
+              Time to complete(in days)
+            </label>
+            <div className="input-content">
+              <img src={timer} alt="" />
+              <input
+                id="TimeToComplite"
+                type="text"
+                minLength={1}
+                maxLength={3}
+              />
+            </div>
+          </div>
+          <div className="time-container">
+            <label style={{ fontWeight: 600 }} htmlFor="TimeToStart">
+              Project starts(in days):
+            </label>
+            <div className="input-content">
+              <img src={dateRange} alt="" />
+              <input id="TimeToStart" type="text" />
+            </div>
+          </div>
         </div>
-        <div className='create-button'>
+
+        <div className="create-button">
           <button type="submit">Create</button>
         </div>
       </form>

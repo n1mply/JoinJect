@@ -19,7 +19,6 @@ async def github_auth():
 @github_router.get("/auth/github/callback")
 async def github_callback(code: str, response: Response):
     print(code)
-    
     try:
         async with httpx.AsyncClient() as client:
             token_response = await client.post(
