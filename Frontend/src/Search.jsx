@@ -1,6 +1,7 @@
 import search from './icons/search.svg';
 import filterAlt from './icons/filter_alt.svg';
 import { useState, useEffect } from 'react';
+import Select from 'react-select'
 import axios from 'axios';
 
 export default function Search({ children }) {
@@ -9,8 +10,8 @@ export default function Search({ children }) {
   const [filterWindow, setFilterWindow] = useState(false);
   const [skills, setSkills] = useState([]);
   const [members, setMembers] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]); // Состояние для выбранных навыков
-
+  const [selectedSkills, setSelectedSkills] = useState([]);
+    const [selectedMember, setSelectedMember] = useState(null)
   const apiClient = axios.create({
     baseURL: 'http://localhost:8000',
     withCredentials: true,
@@ -30,14 +31,18 @@ export default function Search({ children }) {
     fetchData();
   }, []);
 
-  // Обработчик изменения состояния чекбокса
   const handleSkillChange = (skill) => {
     setSelectedSkills((prev) =>
       prev.includes(skill)
-        ? prev.filter((s) => s !== skill) // Удаляем навык, если он уже выбран
-        : [...prev, skill] // Добавляем навык, если он не выбран
+        ? prev.filter((s) => s !== skill) 
+        : [...prev, skill]
     );
   };
+
+  const gradesSelection = members.map((value) => ({
+    value: value,
+    label: value,
+  }));
 
   return (
     <div className="search">
@@ -56,27 +61,39 @@ export default function Search({ children }) {
             alt="filter"
             onClick={() => setFilterWindow(!filterWindow)}
           />
-          {filterWindow && (
+        </div>
+      </div>
+      {filterWindow && (
             <div className="filter-window">
-              <h2>Filters</h2>
+              <h3>Filters</h3>
               <div className="filter-skills">
+                <p>Necessary skills:</p>
                 {skills.map((skill) => (
-                  <label key={skill} className="skill-checkbox">
-                    <input
-                      type="checkbox"
-                      name="skills"
-                      checked={selectedSkills.includes(skill)}
-                      onChange={() => handleSkillChange(skill)}
-                      hidden
-                    />
-                    <span className="skill-text">{skill}</span>
-                  </label>
+                  <div
+                    key={skill}
+                    className={`skill-item ${
+                      selectedSkills.includes(skill) ? 'selected' : ''
+                    }`}
+                    onClick={() => handleSkillChange(skill)}
+                  >
+                    {skill}
+                  </div>
                 ))}
+              </div>
+              <div className="filter-member">
+                <p>Member required:</p>
+                <Select value={selectedMember} options={gradesSelection} className='member-select-filter' onChange={(selected)=>(setSelectedMember(selected))}/>  
+              </div>
+              <div className='filter-button-wrapper'>
+                <button className='apply-button'>Apply and search</button>    
+                <button className='clear-button' onClick={()=>{
+                    setSelectedSkills([])
+                    setSelectedMember(null)
+                }}>Clear</button> 
               </div>
             </div>
           )}
-        </div>
-      </div>
+
     </div>
   );
 }

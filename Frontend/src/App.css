@@ -364,6 +364,32 @@ span.account-action:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px; /* Расстояние между карточками */
+  .under-action-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .respond-button{
+      height: 50px;
+      width: 100px;
+      border: none;
+      color: #fff;
+      background-color: transparent;
+      color: #6582ff;
+      border: 1px solid #6582ff;
+      border-radius: 5px;
+      font-family: 'Fira Code';
+      font-size: 16;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .respond-button:hover{
+      transition: all 0.3s ease;
+      background-color: #6582ff;
+      color: #fff;
+      border: none;
+    }
+  }
+
 }
 
 .project {
@@ -393,7 +419,7 @@ span.account-action:hover {
   line-height: 1.5;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Ограничиваем описание до 3 строк */
+  -webkit-line-clamp: 4; /* Ограничиваем описание до 3 строк */
   -webkit-box-orient: vertical;
 }
 
@@ -484,10 +510,22 @@ span.account-action:hover {
         scale: 0.87;
       }
     }
-    .img-wrapper img:active{
+    .img-wrapper:active{
       transition: scale 0.3s ease;
       scale: 1.1;
     }
+  }
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Начальное смещение вверх */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Конечное положение */
   }
 }
 
@@ -495,58 +533,98 @@ span.account-action:hover {
   display: flex;
   position: absolute;
   top: 60px;
-  right: -122px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
-  width: 300px;
-  height: 400px;
-  align-items: center;
+  width: 96.4%;
   background-color: #fdfdfd;
   border-radius: 10px;
+  padding: 10px;
   z-index: 10;
   flex-direction: column;
-  .filter-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 16px 0;
-  }
-  
-  .skill-checkbox {
-    cursor: pointer;
-    height: 50px;
-  }
-  
-  .skill-text {
-    display: inline-block;
-    padding: 8px 12px;
-    border: 2px solid #6582ff; /* Синяя обводка */
-    border-radius: 20px; /* Скруглённые углы */
-    color: #6582ff; /* Синий цвет текста */
-    font-size: 14px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  /* Стили для выбранного навыка */
-  .skill-checkbox input:checked + .skill-text {
-    background-color: #6582ff; /* Синий фон */
-    color: #fff; /* Белый текст */
-    border-color: #6582ff; /* Синяя обводка */
-  }
+  animation: fadeIn 0.3s ease-in-out; /* Применяем анимацию */
 }
 
-/* Стрелочка вверх */
-.filter-window::before {
-  content: '';
-  position: absolute;
-  top: -10px; /* Расположение стрелочки */
-  right: 45%; /* Смещение стрелочки относительно окна */
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #fdfdfd;
+/* Остальные стили остаются без изменений */
+.filter-window p {
+  width: 100%;
 }
+
+.filter-window h3 {
+  margin: 5px;
+}
+
+.filter-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.skill-item {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid rgb(101, 130, 255);
+  border-radius: 20px;
+  color: rgb(101, 130, 255);
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.skill-item.selected {
+  background-color: rgb(101, 130, 255);
+  color: #fff;
+  border-color: rgb(101, 130, 255);
+}
+
+.filter-member {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-member p {
+  margin-left: 17px;
+}
+
+.member-select-filter {
+  width: 98%;
+  margin-bottom: 30px;
+}
+
+.filter-button-wrapper {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.filter-button-wrapper button {
+  width: 97%;
+  height: 50px;
+  border: none;
+  color: #fff;
+  background-color: #6582ff;
+  border-radius: 5px;
+  font-family: 'Fira Code';
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.filter-button-wrapper .apply-button {
+  width: 75%;
+}
+
+.filter-button-wrapper .clear-button {
+  background-color: transparent;
+  color: #6582ff;
+  border: 2px solid #6582ff;
+  width: 25%;
+}
+
 
 
 @media (max-width: 650px) {

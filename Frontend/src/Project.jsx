@@ -1,6 +1,9 @@
-export default function Project({name, description, skills, members, time_to_complite, time_to_start, author}){
+import { useNavigate } from "react-router-dom";
+
+export default function Project({name, description, skills, members, time_to_complite, time_to_start, author, id}){
+    const navigate = useNavigate()
     return (
-        <div className="project">
+        <div className="project" onClick={()=>(navigate(`/project/${id}`))}>
             <h1>{name}</h1>
             <p>{description}</p>
             <div className="skills">
@@ -15,7 +18,11 @@ export default function Project({name, description, skills, members, time_to_com
                 <p>Time allocated for project: {time_to_complite} days</p>
                 <p>Time before project start: {time_to_start} days</p>
             </div>
-            <span><a href={`/user/${author}`}>@{author}</a></span>
+            <div className="under-action-wrapper">
+                <span><a href={`/user/${author}`}>@{author}</a></span>
+                <button className='respond-button'>Respond</button>
+            </div>
+
         </div>
     )
 }

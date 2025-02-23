@@ -33,4 +33,4 @@ async def post_project_data(project_data: Project, request: Request):
 @project_router.get('/project/get_projects')
 async def get_project_data(request: Request):
     projects = await get_projects()
-    return {"projects": projects}
+    return {"projects": projects[::-1]} # Чтобы были вверху новые проекты

@@ -72,4 +72,5 @@ async def get_projects():
     async for project in projects_collection.find():
         project["_id"] = str(project["_id"])
         projects.append(project)
+    print(str(project["_id"]))
     return projects
