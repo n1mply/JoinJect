@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import githubIcon from './icons/github-mark-white.svg'
+import githubIcon from './icons/github_mark_white.svg'
 
 export default function Register({ setIsNewUser, apiClient }) {
   const [form, setForm] = useState({ username: "", mail: "", password: "" });

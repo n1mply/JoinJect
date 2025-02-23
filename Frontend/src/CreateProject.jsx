@@ -73,7 +73,7 @@ export default function CreateProject({ apiClient }) {
       }
     };
     fetchData();
-  }, [apiClient]);
+  }, []);
 
   const skillsSelection = skills.map((value) => ({
     value: value,

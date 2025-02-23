@@ -1,5 +1,6 @@
 import Project from "./Project"
 import { useEffect, useState } from "react";
+import Search from "./Search";
 
 export default function Projects({apiClient}){
     const [projects, setProjects] = useState([])
@@ -15,9 +16,10 @@ export default function Projects({apiClient}){
 
     return (
     <>
-        <h1>Find the perfect project for yourself or create your own!</h1>
+        <Search>Type name of project or use filters</Search>
+        <h1 className="title">Find the perfect project for yourself or create your own!</h1>
         <div className="projects">
-            {projects.map((projectData)=>(<Project key={projectData.name} {...projectData}/>))}
+          {projects.map((projectData)=>(<Project key={projectData.name} {...projectData}/>))}
         </div>
     </>
     )

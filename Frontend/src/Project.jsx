@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-
 export default function Project({name, description, skills, members, time_to_complite, time_to_start, author}){
     return (
         <div className="project">
