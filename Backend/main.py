@@ -10,12 +10,15 @@ import uvicorn
 from database import create_user, verify_user, get_user_data
 from githubOauth import github_router
 from project_actions import project_router
+from user_actions import user_router
 from access_token_actions import create_access_token, decode_access_token
 from config import SECRET_KEY, ALGORITHM
+
 
 app = FastAPI()
 app.include_router(github_router)
 app.include_router(project_router)
+app.include_router(user_router)
 
 app.add_middleware(
     CORSMiddleware,

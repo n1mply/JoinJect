@@ -364,31 +364,55 @@ span.account-action:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px; /* Расстояние между карточками */
-  .under-action-wrapper{
+  .action-wrapper{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    .respond-button{
-      height: 50px;
-      width: 100px;
-      border: none;
-      color: #fff;
-      background-color: transparent;
-      color: #6582ff;
-      border: 1px solid #6582ff;
-      border-radius: 5px;
-      font-family: 'Fira Code';
-      font-size: 16;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    align-items: start;
+    .under-action-wrapper{
+      display: flex;
+      gap: 10px;
+      .respond-button{
+        height: 50px;
+        width: 100px;
+        border: none;
+        color: #fff;
+        background-color: transparent;
+        color: #6582ff;
+        border: 1px solid #6582ff;
+        border-radius: 5px;
+        font-family: 'Fira Code';
+        font-size: 16;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .respond-button:hover{
+        transition: all 0.3s ease;
+        background-color: #6582ff;
+        color: #fff;
+        border: none;
+      }
+      .more-button{
+        height: 50px;
+        width: 100px;
+        border: none;
+        color: #fff;
+        background-color: #6582ff;
+        color: #ffffff;
+        border-radius: 5px;
+        font-family: 'Fira Code';
+        font-size: 16;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .more-button:hover{
+        transition: all 0.3s ease;
+        background-color: transparent;
+        color: #6582ff;
+        border: 1px solid #6582ff;
+      }
     }
-    .respond-button:hover{
-      transition: all 0.3s ease;
-      background-color: #6582ff;
-      color: #fff;
-      border: none;
     }
-  }
+    
 
 }
 

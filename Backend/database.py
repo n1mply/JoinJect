@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from bcrypt import hashpw, gensalt, checkpw
 from bson.objectid import ObjectId
+import re
 
 MONGO_URL = "mongodb://localhost:27017/"
 client = AsyncIOMotorClient(MONGO_URL)
@@ -74,3 +75,30 @@ async def get_projects():
         projects.append(project)
     print(str(project["_id"]))
     return projects
+
+
+async def get_projects_by_name(name: str):
+    try:
+        regex = re.compile(f'.*{re.escape(name)}.*', re.IGNORECASE)
+        projects = await projects_collection.find({'name': {'$regex': regex}}).to_list(length=100)
+        if projects:
+            # Преобразуем ObjectId в строку для каждого проекта
+            for project in projects:
+                project['_id'] = str(project['_id'])
+            return {'projects': projects[::-1]}
+        else:
+            return {'error': "No projects found with this name!"}
+    except Exception as e:
+        return {'error': str(e)}
+    
+
+async def get_userdata_by_name(name: str):
+    try:
+        user_data = await users_collection.find_one({'username': name})  # Используем правильное имя поля
+        if user_data:
+            user_data['_id'] = str(user_data['_id'])  # Преобразуем ObjectId в строку
+            return user_data['username']  # Возвращаем все данные пользователя
+        else:
+            return None  # Возвращаем None, если пользователь не найден
+    except Exception as e:
+        return {'error': str(e)}

@@ -1,5 +1,5 @@
 from access_token_actions import decode_access_token
-from database import create_project, get_projects
+from database import create_project, get_projects, get_projects_by_name
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Annotated
@@ -30,7 +30,15 @@ async def post_project_data(project_data: Project, request: Request):
         raise HTTPException(status_code=400, detail={'error': result['error']})
     
 
-@project_router.get('/project/get_projects')
-async def get_project_data(request: Request):
+@project_router.get('/project/get_all_projects')
+async def get_project_data():
     projects = await get_projects()
     return {"projects": projects[::-1]} # Чтобы были вверху новые проекты
+
+
+@project_router.get('/project/get_project_by_name/')
+async def get_project_data_with_name(name: str):
+    projects = await get_projects_by_name(name)
+    if 'error' in projects:
+        raise HTTPException(status_code=404, detail=projects['error'])
+    return projects
