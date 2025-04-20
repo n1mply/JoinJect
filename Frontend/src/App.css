@@ -675,6 +675,9 @@ span.account-action:hover {
   .account {
     order: 1;
   }
+  .project{
+    width: 90%;
+  }
 
 
   .header-nav {
