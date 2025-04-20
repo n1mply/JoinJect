@@ -5,7 +5,7 @@ import re
 
 MONGO_URL = "mongodb://localhost:27017/"
 client = AsyncIOMotorClient(MONGO_URL)
-db = client.test
+db = client.data
 users_collection = db.users
 projects_collection = db.projects
 
@@ -94,7 +94,7 @@ async def get_projects_by_name(name: str):
 
 async def get_userdata_by_name(name: str):
     try:
-        user_data = await users_collection.find_one({'username': name})  # Используем правильное имя поля
+        user_data = await users_collection.find_one({'username': name})
         if user_data:
             user_data['_id'] = str(user_data['_id'])  # Преобразуем ObjectId в строку
             return user_data['username']  # Возвращаем все данные пользователя

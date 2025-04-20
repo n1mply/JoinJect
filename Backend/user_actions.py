@@ -8,7 +8,6 @@ user_router = APIRouter()
 async def get_user_by_name(name: str):
     print(f"Searching for user: {name}")  # Логируем имя пользователя
     user_data = await get_userdata_by_name(name)
-    
     if user_data and 'error' not in user_data:  # Проверяем, что пользователь найден и нет ошибок
         return {'user_data': user_data}
     else:
