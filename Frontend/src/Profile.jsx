@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import settings from './icons/settings.svg'
+import "./Profile.css";
 
 export default function Profile({ apiClient }) {
   const { routerUsername } = useParams();
@@ -22,13 +24,19 @@ export default function Profile({ apiClient }) {
   if (!userData) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="profile">
       {isOwner && (
-        <button onClick={() => console.log("Open settings...")}>
-          Settings
+        <button className="settings-button" onClick={() => console.log("Open settings...")}>
+          <img src={settings}/>  
         </button>
       )}
-      <h1>{userData}</h1>
+      <div className="base-info-block">
+        <div className="avatar">
+          <p>n</p>
+        </div>
+        <p className="username">{userData}</p>
+        <p className="description">Bio</p>
+      </div>
     </div>
   );
 }

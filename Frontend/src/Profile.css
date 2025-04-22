@@ -1,0 +1,56 @@
+.profile {
+    position: relative; /* Добавляем relative positioning для родительского контейнера */
+    display: flex;
+    flex-direction: row;
+    width: 1100px;
+    height: 90vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 27.5px;
+}
+
+.settings-button {
+    position: absolute;
+    top: -20px;   
+    right: -20px;
+    border: none;
+    background-color: transparent;
+    scale: 0.4;
+    transition: scale ease 0.3s;
+    transition: all ease 0.3s;
+    cursor: pointer;
+}
+
+.settings-button:hover {
+    scale: 0.45;
+    transform: rotate(30deg);   
+}
+
+.base-info-block{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    .avatar{
+        display: flex;
+        width: 100px;
+        height: 100px;
+        background-color: #6582ff;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+        p{
+            font-size: 52px;
+            color: #fff;
+        }
+    }
+    .username{
+        font-family: Inter;
+        font-size: 30px;
+        font-weight: 700;
+        color: #6582ff;
+        margin: 0;
+        text-align: left;
+        margin-left: 20px;
+    }
+}
+
