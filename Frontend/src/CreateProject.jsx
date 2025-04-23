@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import timer from "./icons/timer.svg";
 import dateRange from "./icons/date_range.svg";
 import { useNavigate } from "react-router-dom";
+import "./CreateProject.css"
 
 export default function CreateProject({ apiClient }) {
   const [projectName, setProjectName] = useState("");
