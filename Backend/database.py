@@ -82,7 +82,6 @@ async def get_projects_by_name(name: str):
         regex = re.compile(f'.*{re.escape(name)}.*', re.IGNORECASE)
         projects = await projects_collection.find({'name': {'$regex': regex}}).to_list(length=100)
         if projects:
-            # Преобразуем ObjectId в строку для каждого проекта
             for project in projects:
                 project['_id'] = str(project['_id'])
             return {'projects': projects[::-1]}
@@ -96,9 +95,9 @@ async def get_userdata_by_name(name: str):
     try:
         user_data = await users_collection.find_one({'username': name})
         if user_data:
-            user_data['_id'] = str(user_data['_id'])  # Преобразуем ObjectId в строку
-            return user_data['username']  # Возвращаем все данные пользователя
+            user_data['_id'] = str(user_data['_id']) 
+            return user_data['username']
         else:
-            return None  # Возвращаем None, если пользователь не найден
+            return None 
     except Exception as e:
         return {'error': str(e)}

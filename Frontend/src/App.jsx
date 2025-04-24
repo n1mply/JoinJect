@@ -7,11 +7,12 @@ import Projects from "./Projects";
 import Community from "./Community";
 import Header from "./Header";
 import axios from "axios";
-import "./App Orginal.css";
+import "./App.css";
 import Profile from "./Profile";
 import CreateProject from "./CreateProject";
 import GitHubCallback from "./GitHubCallback";
-import ProjectDetails from "./ProjectDetails"; // Новый компонент для деталей проекта
+import ProjectDetails from "./ProjectDetails"; 
+import FinishRegistration from "./FinishRegistration"
 
 export default function App() {
   const [isNewUser, setIsNewUser] = useState(true);
@@ -43,6 +44,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home apiClient={apiClient} />} />
           <Route path="/signup" element={<Register setIsNewUser={setIsNewUser} apiClient={apiClient} />} />
+          <Route path="/signup/finish" element={<FinishRegistration apiClient={apiClient}/>}/>
           <Route path="/signin" element={<Login setIsNewUser={setIsNewUser} apiClient={apiClient} />} />
           <Route path="/projects" element={<Projects apiClient={apiClient} />} />
           <Route path="/community" element={<Community apiClient={apiClient} />} />

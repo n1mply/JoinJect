@@ -21,7 +21,7 @@ export default function Register({ setIsNewUser, apiClient }) {
       console.log(form);
       await apiClient.post("/login", { mail: form.mail, password: form.password });
       setIsNewUser(false);
-      navigate("/");
+      navigate("/signup/finish");
       location.reload()
     } catch (error) {
       if (error.response) {

@@ -37,6 +37,12 @@ export default function Profile({ apiClient }) {
         <p className="username">{userData}</p>
         <p className="description">Bio</p>
       </div>
+      <div className="data-user-block">
+        <h1 className="grade-spec">Newbie Bakend Developer</h1>
+        <div className="profile-skills">
+            <p>Skills</p>
+        </div>
+      </div>
     </div>
   );
 }

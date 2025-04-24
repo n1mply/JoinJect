@@ -1,8 +1,8 @@
 .profile {
-    position: relative; /* Добавляем relative positioning для родительского контейнера */
+    position: relative; 
     display: flex;
     flex-direction: row;
-    width: 1100px;
+    width: 90%;
     height: 90vh;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 27.5px;
@@ -28,7 +28,7 @@
 .base-info-block{
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 30%;
     .avatar{
         display: flex;
         width: 100px;
@@ -54,3 +54,16 @@
     }
 }
 
+
+.data-user-block{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .grade-spec {
+        width: 100%;
+        display: flex;
+        justify-content: left;
+        gap: 5px;
+        margin: 0;
+    }
+}

@@ -21,7 +21,7 @@ export default function GitHubCallback({ apiClient }) {
         console.log("Auth response:", response.data);
 
         if (response.data.message === "Authentication successful") {
-          navigate("/");
+          navigate("/signup/finish");
           location.reload()
         } else {
           throw new Error("Authentication failed");
