@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 
 export default function Project({ name, description, skills, members, time_to_complite, time_to_start, author, id }) {

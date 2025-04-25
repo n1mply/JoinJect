@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import search from './icons/search.svg';
 import filterAlt from './icons/filter_alt.svg';
 import { useState, useEffect } from 'react';
@@ -10,11 +12,10 @@ export default function Search({ children, onSearch, onFilterSearch, searchQuery
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
 
-  // Загрузка данных для фильтров
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiClient.get('/data'); // Используем apiClient из пропсов
+        const response = await apiClient.get('/data');
         setSkills(response.data.skills);
         setMembers(response.data.grades);
       } catch {
@@ -39,11 +40,11 @@ export default function Search({ children, onSearch, onFilterSearch, searchQuery
   }));
 
   const handleSearchClick = () => {
-    onSearch(searchQuery); // Вызываем функцию поиска по названию
+    onSearch(searchQuery); 
   };
 
   const handleFilterSearchClick = () => {
-    onFilterSearch(selectedSkills, selectedMember); // Вызываем функцию поиска по фильтрам
+    onFilterSearch(selectedSkills, selectedMember);
   };
 
   return (

@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import githubIcon from './icons/github_mark_white.svg'

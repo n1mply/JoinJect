@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+ 
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import timer from "./icons/timer.svg";
@@ -74,7 +76,7 @@ export default function CreateProject({ apiClient }) {
       }
     };
     fetchData();
-  }, []);
+  }, [apiClient]);
 
   const skillsSelection = skills.map((value) => ({
     value: value,

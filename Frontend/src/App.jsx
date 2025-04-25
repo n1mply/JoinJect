@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
@@ -35,7 +37,7 @@ export default function App() {
     };
 
     checkToken();
-  }, []);
+  }, [apiClient]);
 
   return (
     <Router>

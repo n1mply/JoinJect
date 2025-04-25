@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import Project from "./Project";
 import { useEffect, useState } from "react";
 import Search from "./Search";
@@ -20,7 +22,7 @@ export default function Projects({ apiClient }) {
       }
     };
     fetchData();
-  }, []);
+  }, [apiClient]);
 
   // Функция для поиска проектов по имени
   const handleSearch = async (query) => {

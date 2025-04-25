@@ -101,3 +101,16 @@ async def get_userdata_by_name(name: str):
             return None 
     except Exception as e:
         return {'error': str(e)}
+    
+async def update_user(username: str, update_data: dict):
+    try:
+        result = await users_collection.update_one(
+            {"username": username},
+            {"$set": update_data}
+        )
+        if result.modified_count == 0:
+            return {"error": "User not found or data not modified"}
+        return {"success": True}
+    except Exception as e:
+        print(f"Update error: {e}")
+        return {"error": "Database update failed"}

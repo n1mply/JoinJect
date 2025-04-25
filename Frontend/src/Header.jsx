@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */ 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import addIcon from './icons/add_icon.svg'
@@ -15,7 +16,7 @@ export default function Header({ apiClient, isNewUser }) {
       }
     };
     fetchData();
-  }, []);
+  }, [apiClient]);
 
   return (
     <header>
