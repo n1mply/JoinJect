@@ -30,7 +30,7 @@ app.add_middleware(
 
 # Models
 class RegisterModel(BaseModel):
-    username: Annotated[str, MinLen(3), MaxLen(20)]
+    username: Annotated[str, MinLen(3), MaxLen(10)]
     mail: EmailStr
     password: Annotated[str, MinLen(8), MaxLen(100)]
 

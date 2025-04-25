@@ -18,6 +18,7 @@ class FinishModel(BaseModel):
 async def get_user_by_name(name: str, request: Request):
     print(f"Searching for user: {name}")
     user_data = await get_userdata_by_name(name)
+    print(user_data)
     if not user_data or 'error' in user_data:
         raise HTTPException(status_code=404, detail='User not found!')
     is_owner = False
@@ -48,3 +49,5 @@ async def add_final_user_data(user_add_data: FinishModel, request: Request):
             return {"message": "Profile was updated!"}
         except (jwt.JWTError, jwt.ExpiredSignatureError):
             return HTTPException(status_code=403)  
+
+

@@ -36,13 +36,16 @@ export default function Profile({ apiClient }) {
         <div className="avatar">
           <p>n</p>
         </div>
-        <p className="username">{userData}</p>
-        <p className="description">Bio</p>
+        <p className="username">{userData.username}</p>
+        <p className="description">{userData.bio}</p>
       </div>
       <div className="data-user-block">
-        <h1 className="grade-spec">Newbie Bakend Developer</h1>
+        <h1 className="grade-spec">{userData.selectedGrade}</h1>
         <div className="profile-skills">
             <p>Skills</p>
+            {userData.selectedSkills.map((skill) => (
+          <span key={skill} className="skill">{skill}</span>
+            ))}
         </div>
       </div>
     </div>

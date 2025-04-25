@@ -45,7 +45,6 @@ async def get_user_data(mail: str) -> str:
     username = await users_collection.find_one({"mail": mail})
     return username['username']
 
-
 async def create_user_from_github(user_data: dict):
     try:
         existing_user = await users_collection.find_one({"username": user_data["username"]})
@@ -96,7 +95,7 @@ async def get_userdata_by_name(name: str):
         user_data = await users_collection.find_one({'username': name})
         if user_data:
             user_data['_id'] = str(user_data['_id']) 
-            return user_data['username']
+            return user_data
         else:
             return None 
     except Exception as e:
