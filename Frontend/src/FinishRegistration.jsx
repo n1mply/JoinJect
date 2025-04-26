@@ -57,7 +57,6 @@ export default function FinishRegistration({apiClient}){
           bio: bio,
           selectedGrade: selectedGrade.value,
           selectedSkills: selectedSkills.map((skill)=>skill.value),
-          grade: 'Newbie',
         }
         console.log(userAddData)
         try {

@@ -40,7 +40,7 @@ export default function Profile({ apiClient }) {
         <p className="description">{userData.bio}</p>
       </div>
       <div className="data-user-block">
-        <h1 className="grade-spec">{userData.selectedGrade}</h1>
+        <h1 className="grade-spec">{userData.grade + " " +userData.selectedGrade}</h1>
           <p className="skills-text">Skills</p>
           <div className="profile-skills">
             {userData.selectedSkills.map((skill) => (

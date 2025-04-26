@@ -33,6 +33,7 @@ class RegisterModel(BaseModel):
     username: Annotated[str, MinLen(3), MaxLen(10)]
     mail: EmailStr
     password: Annotated[str, MinLen(8), MaxLen(100)]
+    grade: Annotated[str, MinLen(1)]
 
 class LoginModel(BaseModel):
     mail: EmailStr

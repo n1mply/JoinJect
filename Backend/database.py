@@ -18,7 +18,7 @@ async def create_user(user_data: dict):
 
         hashed_password = hashpw(user_data["password"].encode('utf-8'), gensalt())
         user_data["password"] = hashed_password.decode('utf-8')
-
+        print(user_data)
         result = await users_collection.insert_one(user_data)
         return {"user_id": str(result.inserted_id)}
     except Exception as e:

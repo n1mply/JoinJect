@@ -12,7 +12,6 @@ class FinishModel(BaseModel):
     bio: Annotated[str, MinLen(60), MaxLen(200)]
     selectedGrade: Annotated[str, MinLen(1)]
     selectedSkills: Annotated[list, MinLen(4), MaxLen(40)]
-    grade: Annotated[str, MinLen(1)]
 
 
 @user_router.get('/user/{name}')
