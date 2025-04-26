@@ -44,13 +44,18 @@
         }
     }
     .username{
-        font-family: Inter;
-        font-size: 30px;
+        font-family: Outfit;
+        font-size: 16px;
         font-weight: 700;
         color: #6582ff;
         margin: 0;
         text-align: left;
-        margin-left: 20px;
+        margin-left: 10px;
+    }
+    .description{
+        color: #656464;
+        margin-left: 10px;
+        font-size: 14px;
     }
 }
 
@@ -63,7 +68,38 @@
         width: 100%;
         display: flex;
         justify-content: left;
+        font-family: Outfit;
         gap: 5px;
         margin: 0;
+        margin-left: 6px;
+    }
+    .skills-text{
+        margin-left: 6px;
+    }
+    .profile-skills{
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        gap: 10px;
+        margin-left: 6px;
+        .skill:hover{
+            transform: translateY(-2px);
+        }
+    }
+}
+
+
+
+
+@media (max-width: 629px) {
+    .profile{
+        display: flex;
+        flex-direction: column;
+    }
+    .base-info-block{
+        width: 100%;
+        .avatar{
+            margin: 10px;
+        }
     }
 }

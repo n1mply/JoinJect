@@ -28,8 +28,10 @@ export default function FinishRegistration({apiClient}){
         const fetchData = async () => {
           try {
             const response = await apiClient.get("/data");
+            const grades = response.data.grades;
+            const specialties = [...new Set(grades.map(grade => grade.split(' ').slice(1).join(' ')))];
+            setMembers(specialties);
             setSkills(response.data.skills);
-            setMembers(response.data.grades);
           } catch {
             setSkills([]);
             setMembers([]);
@@ -54,7 +56,8 @@ export default function FinishRegistration({apiClient}){
         const userAddData = {
           bio: bio,
           selectedGrade: selectedGrade.value,
-          selectedSkills: selectedSkills.map((skill)=>skill.value)
+          selectedSkills: selectedSkills.map((skill)=>skill.value),
+          grade: 'Newbie',
         }
         console.log(userAddData)
         try {
@@ -71,6 +74,13 @@ export default function FinishRegistration({apiClient}){
     return (
         <form onSubmit={handleSubmit}>
             <h1>Final Step</h1>
+            {errors.length > 0 && (
+            <div className="error-block">
+              {errors.map((error, index) => (
+                <p key={index} className="error-message">{error.message}</p>
+              ))}
+            </div>
+            )}
             <label htmlFor="Bio">Profile bio</label>
             <textarea 
               id="Bio" 

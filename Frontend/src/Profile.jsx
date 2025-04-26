@@ -34,17 +34,17 @@ export default function Profile({ apiClient }) {
       )}
       <div className="base-info-block">
         <div className="avatar">
-          <p>n</p>
+          <p>{userData.username[0]}</p>
         </div>
         <p className="username">{userData.username}</p>
         <p className="description">{userData.bio}</p>
       </div>
       <div className="data-user-block">
         <h1 className="grade-spec">{userData.selectedGrade}</h1>
-        <div className="profile-skills">
-            <p>Skills</p>
+          <p className="skills-text">Skills</p>
+          <div className="profile-skills">
             {userData.selectedSkills.map((skill) => (
-          <span key={skill} className="skill">{skill}</span>
+            <span key={skill} className="skill">{skill}</span>
             ))}
         </div>
       </div>
