@@ -15,6 +15,7 @@ import CreateProject from "./CreateProject";
 import GitHubCallback from "./GitHubCallback";
 import ProjectDetails from "./ProjectDetails"; 
 import FinishRegistration from "./FinishRegistration"
+import Settings from "./Settings";
 
 export default function App() {
   const [isNewUser, setIsNewUser] = useState(true);
@@ -54,6 +55,7 @@ export default function App() {
           <Route path="/project/:projectId" element={<ProjectDetails apiClient={apiClient} />} /> {/* Динамический маршрут для деталей проекта */}
           <Route path="/create" element={<CreateProject apiClient={apiClient} />} />
           <Route path="/auth/github/callback" element={<GitHubCallback apiClient={apiClient} />} />
+          <Route path="/settings" element={<Settings apiClient={apiClient}/>}/>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

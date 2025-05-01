@@ -56,6 +56,36 @@
         color: #656464;
         margin-left: 10px;
         font-size: 14px;
+        height: 100px;
+        overflow-wrap: break-word;
+    }
+    .progressbar-container{
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .progressbar-container-info{
+        display: flex;
+        width: 95%;
+        margin-left: 10px;
+        justify-content: space-between;
+        p{
+            margin: 0;
+        }
+    }
+    .progressbar{
+        width: 95%;
+        height: 10px;
+        margin-left: 10px;
+        background-color: #656464;
+        border-radius: 5px;
+        .progressbar-passed{
+            width: 0%;
+            height: 10px;
+            background-color: #6582ff;
+            border-radius: 5px;
+        }
     }
 }
 

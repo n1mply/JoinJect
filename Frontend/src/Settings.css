@@ -1,0 +1,108 @@
+.settings{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 90vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 27.5px;
+    h1{
+        text-align: center;
+        font-family: Outfit;
+    }
+}
+
+.file-drop-area {
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--bg-secondary);
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+  }
+  
+  .file-drop-area.dragging {
+    border-color: var(--color-primary);
+    background-color: rgba(101, 130, 255, 0.05);
+  }
+  
+  .file-drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .upload-icon {
+    margin-bottom: 12px;
+  }
+  
+  .file-hint {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .file-name {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .upload-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    box-shadow: var(--shadow);
+  }
+  
+  .upload-button:hover {
+    background-color: var(--color-primary-hover);
+  }
+  
+  .file-preview {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: var(--bg-primary);
+    border-radius: 6px;
+    color: var(--color-text);
+  }
+
+
+/* Добавьте к существующим стилям */
+.file-drop-area.error {
+    border-color: var(--error-color);
+    background-color: rgba(255, 77, 79, 0.05);
+  }
+  
+  .file-requirements {
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+  
+  /* Анимация для ошибки (если ещё не добавлена) */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
