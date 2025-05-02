@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import settings from './icons/settings.svg'
@@ -9,21 +7,43 @@ export default function Profile({ apiClient }) {
   const navigate = useNavigate(); 
   const { routerUsername } = useParams();
   const [userData, setUserData] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
-  const [baseGrade, setBaseGrade] = useState('Newbie')
-  const [confidence, setConfidence] = useState(0)
-  const gradeList = ['Newbie', 'Junior', 'Middle', 'Senior']
+  const [baseGrade, setBaseGrade] = useState('Newbie');
+  const [confidence, setConfidence] = useState(0);
+  const gradeList = ['Newbie', 'Junior', 'Middle', 'Senior'];
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        // Загружаем данные пользователя
         const response = await apiClient.get(`/user/${routerUsername}`);
         setUserData(response.data.user_data);
         setIsOwner(response.data.is_owner);
+        
+        // Загружаем аватарку как Blob
+        const avatarResponse = await apiClient.get(`/user/avatar/${routerUsername}`, {
+          responseType: 'blob' // Указываем, что ожидаем бинарные данные
+        });
+        
+        // Создаем URL для Blob
+        const avatarBlob = new Blob([avatarResponse.data]);
+        const avatarUrl = URL.createObjectURL(avatarBlob);
+        setAvatar(avatarUrl);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching data:", error);
+        // В случае ошибки оставляем avatar как null (будет показана первая буква)
       }
     };
+    
     fetchUserData();
+    
+    // Очистка при размонтировании
+    return () => {
+      if (avatar) {
+        URL.revokeObjectURL(avatar);
+      }
+    };
   }, [routerUsername, apiClient]);
 
   if (!userData) return <div>Loading...</div>;
@@ -32,12 +52,20 @@ export default function Profile({ apiClient }) {
     <div className="profile">
       {isOwner && (
         <button className="settings-button" onClick={() => navigate('/settings')}>
-          <img src={settings}/>  
+          <img src={settings} alt="Settings"/>  
         </button>
       )}
       <div className="base-info-block">
         <div className="avatar">
-          <p>{userData.username[0]}</p>
+          {avatar ? (
+            <img 
+              src={avatar} 
+              alt={`${userData.username}'s avatar`}
+              onError={() => setAvatar(null)} // Если ошибка загрузки - сбрасываем
+            />
+          ) : (
+            <p>{userData.username[0]}</p>
+          )}
         </div>
         <p className="username">{userData.username}</p>
         <div className="progressbar-container">
@@ -47,21 +75,20 @@ export default function Profile({ apiClient }) {
             <p className="next-rank">{gradeList[gradeList.indexOf(baseGrade)+1]}</p>
           </div>
           <div className="progressbar">
-            <div className="progressbar-passed" style={{width: `${confidence}%`}} ></div>
+            <div className="progressbar-passed" style={{width: `${confidence}%`}}></div>
           </div>
-
         </div>
         <p className="description">{userData.bio}</p>
       </div>
       <div className="data-user-block">
-      <h1 className="grade-spec">
-      {userData.grade === undefined ? 'Newbie' + " " + userData.selectedGrade : userData.grade + " " + userData.selectedGrade}
-      </h1>
-          <p className="skills-text">Skills</p>
-          <div className="profile-skills">
-            {userData.selectedSkills.map((skill) => (
+        <h1 className="grade-spec">
+          {userData.grade === undefined ? 'Newbie' + " " + userData.selectedGrade : userData.grade + " " + userData.selectedGrade}
+        </h1>
+        <p className="skills-text">Skills</p>
+        <div className="profile-skills">
+          {userData.selectedSkills.map((skill) => (
             <span key={skill} className="skill">{skill}</span>
-            ))}
+          ))}
         </div>
       </div>
     </div>

@@ -31,13 +31,19 @@
     width: 30%;
     .avatar{
         display: flex;
-        width: 100px;
-        height: 100px;
+        width: 158px;
+        height: 158px;
         background-color: #6582ff;
         border-radius: 50%;
+        border: none;
         justify-content: center;
         align-items: center;
         margin: 20px;
+        img{
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
         p{
             font-size: 52px;
             color: #fff;

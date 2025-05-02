@@ -1,7 +1,10 @@
+import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from bcrypt import hashpw, gensalt, checkpw
 from bson.objectid import ObjectId
 import re
+
+from uploader import AVATARS_DIR
 
 MONGO_URL = "mongodb://localhost:27017/"
 client = AsyncIOMotorClient(MONGO_URL)
@@ -113,3 +116,32 @@ async def update_user(username: str, update_data: dict):
     except Exception as e:
         print(f"Update error: {e}")
         return {"error": "Database update failed"}
+    
+
+async def update_user_profile(username: str, update_data: dict):
+    try:
+        # Удаляем None/пустые значения
+        update_data = {k: v for k, v in update_data.items() if v not in (None, "", [])}
+        
+        if not update_data:
+            return {"error": "No valid data to update"}
+        
+        # Если обновляется аватар, удаляем старую
+        if "avatar" in update_data:
+            user = await users_collection.find_one({"username": username})
+            if user and "avatar" in user:
+                old_avatar = os.path.join(AVATARS_DIR, user["avatar"])
+                if os.path.exists(old_avatar):
+                    os.remove(old_avatar)
+        
+        result = await users_collection.update_one(
+            {"username": username},
+            {"$set": update_data}
+        )
+        
+        if result.modified_count == 0:
+            return {"error": "No changes made"}
+        return {"success": True}
+    except Exception as e:
+        print(f"Database error: {e}")
+        return {"error": "Database operation failed"}

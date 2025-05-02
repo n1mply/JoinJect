@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback } from 'react';
 
-export default function DragNDropAvatar({}){
+export default function DragNDropAvatar({ onFileUpload }) {  // Принимаем колбэк для передачи файла
     const [file, setFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
   
-    const validExtensions = ['image/png', 'image/jpeg', 'image/jpg'];
+    const validExtensions = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
   
     const validateFile = (file) => {
       if (!validExtensions.includes(file.type)) {
@@ -21,6 +21,7 @@ export default function DragNDropAvatar({}){
       const selectedFile = e.target.files[0];
       if (selectedFile && validateFile(selectedFile)) {
         setFile(selectedFile);
+        onFileUpload(selectedFile);  // Передаём файл в родительский компонент
       }
     };
   
@@ -40,13 +41,15 @@ export default function DragNDropAvatar({}){
       const droppedFile = e.dataTransfer.files[0];
       if (droppedFile && validateFile(droppedFile)) {
         setFile(droppedFile);
+        onFileUpload(droppedFile);  // Передаём файл в родительский компонент
       }
-    }, []);
+    }, [onFileUpload]);  // Добавляем onFileUpload в зависимости
   
     const handleButtonClick = () => {
-      setError(null); // Сбрасываем ошибку при новом выборе
+      setError(null);
       fileInputRef.current.click();
     };
+  
     return (
         <>
             <p className="edit-avatar">Upload the avatar</p>
@@ -62,13 +65,13 @@ export default function DragNDropAvatar({}){
               onDrop={handleDrop}
               onClick={handleButtonClick}
             >
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="file-input"
-              accept="image/png, image/jpeg, image/jpg"
-            />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  className="file-input"
+                  accept="image/png, image/jpeg, image/jpg"
+                />
                 <div className="file-drop-content">
                   {file ? (
                     <>
@@ -87,5 +90,5 @@ export default function DragNDropAvatar({}){
                 </div>
             </div>
         </>
-    )
+    );
 }
