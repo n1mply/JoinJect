@@ -1,14 +1,20 @@
-.settings{
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    height: 90vh;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 27.5px;
-    h1{
-        text-align: center;
-        font-family: Outfit;
-    }
+.settings-form{
+  position: relative;
+}
+
+.success{
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  width: 190px;
+  padding: 5px;
+  left: 32%;
+  top: -5%;
+  animation: slideDown 0.3s ease-out forwards;
 }
 
 .file-drop-area {
@@ -93,7 +99,6 @@
     opacity: 0.8;
   }
   
-  /* Анимация для ошибки (если ещё не добавлена) */
   @keyframes slideDown {
     from {
       opacity: 0;

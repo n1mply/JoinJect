@@ -16,29 +16,25 @@ export default function Profile({ apiClient }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Загружаем данные пользователя
         const response = await apiClient.get(`/user/${routerUsername}`);
         setUserData(response.data.user_data);
         setIsOwner(response.data.is_owner);
         
-        // Загружаем аватарку как Blob
         const avatarResponse = await apiClient.get(`/user/avatar/${routerUsername}`, {
-          responseType: 'blob' // Указываем, что ожидаем бинарные данные
+          responseType: 'blob' 
         });
         
-        // Создаем URL для Blob
+
         const avatarBlob = new Blob([avatarResponse.data]);
         const avatarUrl = URL.createObjectURL(avatarBlob);
         setAvatar(avatarUrl);
       } catch (error) {
         console.error("Error fetching data:", error);
-        // В случае ошибки оставляем avatar как null (будет показана первая буква)
       }
     };
     
     fetchUserData();
     
-    // Очистка при размонтировании
     return () => {
       if (avatar) {
         URL.revokeObjectURL(avatar);
@@ -61,7 +57,7 @@ export default function Profile({ apiClient }) {
             <img 
               src={avatar} 
               alt={`${userData.username}'s avatar`}
-              onError={() => setAvatar(null)} // Если ошибка загрузки - сбрасываем
+              onError={() => setAvatar(null)} 
             />
           ) : (
             <p>{userData.username[0]}</p>

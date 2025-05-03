@@ -2,19 +2,21 @@ import './Settings.css';
 import DragNDropAvatar from './DragAndDropAvatar';
 import { useEffect, useState, useMemo } from 'react';
 import Select from 'react-select';
+import check from './icons/check_circle.svg'
 
 export default function Settings({ apiClient }) {
     const [bio, setBio] = useState('');
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [file, setFile] = useState(null); // Добавляем состояние для загруженного файла
+    const [file, setFile] = useState(null); 
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const handleSelectSkills = (selectedOptions) => {
         setSelectedSkills(selectedOptions || []);
+        setShowSuccess(false)
     };
 
-    // Обработчик отправки формы
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -36,7 +38,7 @@ export default function Settings({ apiClient }) {
                 },
             });
             
-            console.log('Профиль обновлён!', response.data);
+            setShowSuccess(true)
             
         } catch (error) {
             console.error('Ошибка при обновлении профиля:', error);
@@ -81,7 +83,11 @@ export default function Settings({ apiClient }) {
     if (isLoading) return <div>Loading...</div>;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='settings-form' onSubmit={handleSubmit}>
+        {showSuccess && <div className="success">
+                <p>Profile was updated!</p> 
+                <img src={check} alt="" />
+            </div>}
             <h1>Edit your profile</h1>
             <DragNDropAvatar onFileUpload={setFile} />
             <p className="edit-description">Edit description</p>
@@ -89,7 +95,10 @@ export default function Settings({ apiClient }) {
                 name="description" 
                 id="description" 
                 value={bio} 
-                onChange={(e) => setBio(e.target.value)}
+                onChange={(e) => {
+                    setBio(e.target.value)
+                    setShowSuccess(false)
+                }}
                 minLength={60} 
                 required
             />

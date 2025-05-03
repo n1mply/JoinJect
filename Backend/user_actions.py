@@ -106,5 +106,10 @@ async def get_avatar(username: str):
     avatar_path = os.path.join(AVATARS_DIR, user_data["avatar"])
     if not os.path.exists(avatar_path):
         return FileResponse("static/default_avatar.png")
-    
-    return FileResponse(avatar_path)
+    print(avatar_path)
+    return FileResponse(avatar_path, 
+            headers={
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        })

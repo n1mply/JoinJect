@@ -120,13 +120,12 @@ async def update_user(username: str, update_data: dict):
 
 async def update_user_profile(username: str, update_data: dict):
     try:
-        # Удаляем None/пустые значения
+
         update_data = {k: v for k, v in update_data.items() if v not in (None, "", [])}
         
         if not update_data:
             return {"error": "No valid data to update"}
         
-        # Если обновляется аватар, удаляем старую
         if "avatar" in update_data:
             user = await users_collection.find_one({"username": username})
             if user and "avatar" in user:

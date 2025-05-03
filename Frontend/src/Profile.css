@@ -116,6 +116,7 @@
         display: flex;
         flex-wrap: wrap;
         height: auto;
+        width: 55%;
         gap: 10px;
         margin-left: 6px;
         .skill:hover{
@@ -123,8 +124,6 @@
         }
     }
 }
-
-
 
 
 @media (max-width: 629px) {
@@ -137,5 +136,36 @@
         .avatar{
             margin: 10px;
         }
+    }
+    .profile-skills{
+        width: 100% !important;
+    }
+}
+
+
+@media (max-width: 650px) {
+    .avatar{
+        display: flex;
+        width: 128px !important;
+        height: 128px !important;
+        background-color: #6582ff;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+        img{
+            border-radius: 50%;
+            width: 120px !important;
+            height: 120px !important;
+        }}
+}
+
+
+
+@media (max-width: 684px) {
+    .profile{
+        transition: all ease 0.3s;
+        width: 99% !important;
+        margin: 0;
     }
 }
