@@ -72,7 +72,7 @@ export default function Projects({ apiClient }) {
         setSearchQuery={setSearchQuery} // Передаем функцию для обновления поискового запроса
         apiClient={apiClient} // Передаем apiClient для получения данных фильтров
       >
-        Type name of project or use filters
+        Type name of project
       </Search>
       <h1 className="title">
         Find the perfect project for yourself or create your own!

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import settings from './icons/settings.svg'
+import githubIcon from './icons/github_mark_white.svg'
 import "./Profile.css";
 
 export default function Profile({ apiClient }) {
@@ -52,17 +53,20 @@ export default function Profile({ apiClient }) {
         </button>
       )}
       <div className="base-info-block">
-        <div className="avatar">
+
           {avatar ? (
             <img 
               src={avatar} 
+              className="avatar-img"
               alt={`${userData.username}'s avatar`}
               onError={() => setAvatar(null)} 
             />
           ) : (
-            <p>{userData.username[0]}</p>
+            <div className="avatar">
+              <p>{userData.username[0]}</p>
+            </div>
           )}
-        </div>
+
         <p className="username">{userData.username}</p>
         <div className="progressbar-container">
           <div className="progressbar-container-info">
@@ -75,6 +79,21 @@ export default function Profile({ apiClient }) {
           </div>
         </div>
         <p className="description">{userData.bio}</p>
+        {userData.service && (
+        <div className="linked-services">
+          <p className="service-text">Linked services</p>
+          <a
+            href={`https://github.com/${userData.username}`}
+            className="github-button"
+            target="_blank"
+            rel="noopener noreferrer">
+                        <div style={{marginRight: '10px'}}>
+                          <img src={githubIcon}/>
+                        </div>
+                        <p>Check my GitHub</p></a>
+            
+            </div>
+        )}
       </div>
       <div className="data-user-block">
         <h1 className="grade-spec">

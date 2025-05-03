@@ -8,5 +8,13 @@ export default defineConfig({
     host: '0.0.0.0', // Доступ с любого IP в локальной сети
     port: 5173,      // Порт (можно поменять, если занят)
     strictPort: true, // Не автоматически искать другой порт, если 5173 занят
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
   },
+  
 })

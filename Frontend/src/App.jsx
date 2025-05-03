@@ -20,9 +20,10 @@ import Settings from "./Settings";
 export default function App() {
   const [isNewUser, setIsNewUser] = useState(true);
   const apiClient = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "/api",
     withCredentials: true,
   });
+  
 
   useEffect(() => {
     const checkToken = async () => {
