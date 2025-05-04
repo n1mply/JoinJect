@@ -33,7 +33,7 @@ export default function GitHubCallback({ apiClient }) {
           message: error.message,
           response: error.response?.data,
         });
-        navigate("/login", { state: { error: "GitHub login failed" } });
+        navigate("/signin", { state: { error: "GitHub login failed" } });
       }
     };
 

@@ -10,7 +10,7 @@ export default defineConfig({
     strictPort: true, // Не автоматически искать другой порт, если 5173 занят
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://192.168.1.10:8000', // Указываем IP ПК
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },

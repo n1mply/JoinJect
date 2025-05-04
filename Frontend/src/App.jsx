@@ -16,6 +16,7 @@ import GitHubCallback from "./GitHubCallback";
 import ProjectDetails from "./ProjectDetails"; 
 import FinishRegistration from "./FinishRegistration"
 import Settings from "./Settings";
+import Footer from "./Footer";
 
 export default function App() {
   const [isNewUser, setIsNewUser] = useState(true);
@@ -60,6 +61,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
+      <Footer></Footer>
     </Router>
   );
 }

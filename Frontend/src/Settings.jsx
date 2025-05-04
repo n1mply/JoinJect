@@ -1,10 +1,13 @@
 import './Settings.css';
 import DragNDropAvatar from './DragAndDropAvatar';
+import ThemeSwitcher from './ThemeSwitcher';
 import { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom'
 import Select from 'react-select';
 import check from './icons/check_circle.svg'
 
 export default function Settings({ apiClient }) {
+    const navigate = useNavigate()
     const [bio, setBio] = useState('');
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]);
@@ -16,6 +19,17 @@ export default function Settings({ apiClient }) {
         setSelectedSkills(selectedOptions || []);
         setShowSuccess(false)
     };
+
+    const handleLogout = async () => {
+        try {
+          await apiClient.post('/logout')
+    
+          navigate('/signin')
+          location.reload()
+        } catch (error) {
+          console.error('Logout failed:', error);
+        }
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -80,9 +94,12 @@ export default function Settings({ apiClient }) {
         }));
     }, [allSkills]);
 
+    
+
     if (isLoading) return <div>Loading...</div>;
 
     return (
+        <>
         <form className='settings-form' onSubmit={handleSubmit}>
         {showSuccess && <div className="success">
                 <p>Profile was updated!</p> 
@@ -116,5 +133,13 @@ export default function Settings({ apiClient }) {
             />
             <button className='action-button' type='submit'>Save</button>
         </form>
+        <div className='other'>
+            <p>Other</p>
+            <div className="other-actions-container">
+                <button className='logout-button' onClick={handleLogout}>Logout</button>
+                <ThemeSwitcher/>
+            </div>
+        </div>
+        </>
     );
 }

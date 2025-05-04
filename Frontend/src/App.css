@@ -78,6 +78,19 @@ a {
   color: var(--color-text);
 }
 
+footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-secondary);
+  width: 100%;
+  margin-top: 200px;
+  background-color: var(--bg-secondary);
+  height: 100px;
+  box-shadow: var(--shadow);
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -484,6 +497,7 @@ span.account-action:hover {
     justify-content: center;
     align-items: center;  
     width: 60%;
+    color: var(--color-text);
   }
   
   .search{
@@ -492,7 +506,7 @@ span.account-action:hover {
     position: relative;
     align-items: center;
     width: 550px;
-    background-color: #fdfdfd;
+    background-color: var(--bg-primary);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     border-radius: 10px;
     input{
@@ -819,6 +833,12 @@ span.account-action:hover {
   form, .create-project-form {
     width: 100%;
     padding: 16px;
+  }
+  .other{
+    width: 100% !important;
+  }
+  .logout-button{
+    width: 50% !important;
   }
   
   .project {

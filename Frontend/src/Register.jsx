@@ -49,7 +49,7 @@ export default function Register({ setIsNewUser, apiClient }) {
   
 
   const handleGitHubAuth = () => {
-    window.location.href = "http://localhost:8000/auth/github";
+    window.location.href = "/api/auth/github";
   };
 
   const getInputErrorClass = (field) => {
