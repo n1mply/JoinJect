@@ -67,14 +67,24 @@ export default function CreateProject({ apiClient }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiClient.get("/data");
-        setSkills(response.data.skills);
-        setMembers(response.data.grades);
+        const responseSkills = await apiClient.get('/data/skills');
+        const responseGrades = await apiClient.get('/data/grades');
+        
+        setSkills(responseSkills.data.skills);
+        
+        const expandedGrades = responseGrades.data.grades.flatMap(grade => [
+          `Junior ${grade}`,
+          `Middle ${grade}`,
+          `Senior ${grade}`
+        ]);
+        
+        setMembers(expandedGrades);
       } catch {
         setSkills([]);
         setMembers([]);
       }
     };
+    
     fetchData();
   }, [apiClient]);
 

@@ -74,7 +74,7 @@ export default function Settings({ apiClient }) {
                 }));
                 setSelectedSkills(formattedUserSkills);
                 
-                const skillsResponse = await apiClient.get('/data');
+                const skillsResponse = await apiClient.get('/data/skills');
                 setAllSkills(skillsResponse.data.skills || []);
                 
             } catch (error) {

@@ -65,9 +65,20 @@ async def create_project(data: dict, username: str):
     existing_project = await projects_collection.find_one({'name': data['name']})
     if existing_project:
         return {'error': 'Project with the same name already exists!'}
+
+
     data.update({"author": username})
     result = await projects_collection.insert_one(data)
-    return {'message': 'Project has been created!', 'project_id': str(result.inserted_id)}
+
+    await users_collection.update_one(
+        {"username": username},
+        {"$addToSet": {"projects": data['name']}}
+    )
+
+    return {
+        'message': 'Project has been created!',
+        'project_id': str(result.inserted_id)
+    }
 
 
 async def get_projects():

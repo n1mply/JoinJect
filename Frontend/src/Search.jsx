@@ -15,9 +15,10 @@ export default function Search({ children, onSearch, onFilterSearch, searchQuery
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiClient.get('/data');
-        setSkills(response.data.skills);
-        setMembers(response.data.grades);
+        const responseSkills = await apiClient.get('/data/skills');
+        const responseGrades = await apiClient.get('/data/grades');
+        setSkills(responseSkills.data.skills);
+        setMembers(responseGrades.data.grades);
       } catch {
         setSkills([]);
         setMembers([]);

@@ -1,0 +1,21 @@
+{ 
+  "grades":[
+      "Backend developer",
+      "Frontend developer",
+      "Fullstack developer",
+      "Mobile developer",
+      "DevOps engineer",
+      "Data Scientist",
+      "Machine Learning engineer",
+      "QA engineer",
+      "UI/UX designer",
+      "Product Manager",
+      "System Administrator",
+      "Data Engineer",
+      "Security Engineer",
+      "Cloud Engineer",
+      "Blockchain Developer",
+      "Game Developer",
+      "Embedded Systems Developer"
+    ]
+}

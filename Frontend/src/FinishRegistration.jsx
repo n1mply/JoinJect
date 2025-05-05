@@ -27,11 +27,10 @@ export default function FinishRegistration({apiClient}){
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await apiClient.get("/data");
-            const grades = response.data.grades;
-            const specialties = [...new Set(grades.map(grade => grade.split(' ').slice(1).join(' ')))];
-            setMembers(specialties);
-            setSkills(response.data.skills);
+            const responseSkills = await apiClient.get('/data/skills');
+            const responseGrades = await apiClient.get('/data/grades');
+            setSkills(responseSkills.data.skills);
+            setMembers(responseGrades.data.grades);
           } catch {
             setSkills([]);
             setMembers([]);

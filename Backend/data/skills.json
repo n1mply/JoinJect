@@ -1,0 +1,17 @@
+{
+    "skills": [
+        "C#", "Python", "Java", "JavaScript", "Ruby", "PHP", "C++", "C",
+        "TypeScript", "Go", "Rust", "Swift", "Kotlin", "Perl", "Scala", "Lua", "Haskell", "Elixir", "Erlang", "Dart",
+        "React", "React Native", "Vue.js", "Angular", "Svelte", "Next.js", "Nuxt.js", "Flutter",
+        "FastAPI", "Django", "Flask", "Express.js", "NestJS", "Spring Boot", "Laravel", "Ruby on Rails", "ASP.NET Core", "Aiogram", "Celery",
+        "Node.js", "GraphQL", "gRPC", "WebSockets",
+        "Docker", "Kubernetes", "Terraform", "Ansible", "Vagrant", "Helm", "Prometheus", "Grafana", "Jenkins", "GitLab CI/CD", "GitHub Actions",
+        "PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis", "Elasticsearch", "Cassandra", "InfluxDB", "MariaDB",
+        "AWS", "Azure", "Google Cloud Platform", "Firebase", "Heroku", "DigitalOcean", "Netlify", "Vercel",
+        "HTML", "CSS", "SASS", "LESS", "Tailwind CSS", "Bootstrap",
+        "Linux", "Bash", "PowerShell", "Zsh",
+        "Unity", "Unreal Engine", "Blender",
+        "Pandas", "NumPy", "Matplotlib", "TensorFlow", "PyTorch", "scikit-learn", "OpenCV", "NLTK", "spaCy",
+        "Jupyter Notebook", "VS Code", "WebStorm", "PyCharm", "IntelliJ IDEA", "Eclipse", "NetBeans"
+      ]
+}

@@ -73,13 +73,13 @@ async def github_callback(code: str, response: Response):
                 primary_email = next((e for e in emails_data if e.get("primary") and e.get("verified")), None)
                 if primary_email:
                     email = primary_email["email"]
-                elif emails_data:  # если есть хотя бы один email, берем первый
+                elif emails_data:
                     email = emails_data[0]["email"]
 
             user = {
                 "username": username,
                 "mail": email or f"{username}@no-email.com",  # fallback если email не найден
-                "service": "github",
+                "services": ['github',],
             }
             print(user)
             result = await create_user_from_github(user)

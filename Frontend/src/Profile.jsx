@@ -79,19 +79,21 @@ export default function Profile({ apiClient }) {
           </div>
         </div>
         <p className="description">{userData.bio}</p>
-        {userData.service && (
+        {userData.services && (
         <div className="linked-services">
           <p className="service-text">Linked services</p>
-          <a
-            href={`https://github.com/${userData.username}`}
-            className="github-button"
-            target="_blank"
-            rel="noopener noreferrer">
+          {userData.services[0] && (
+                      <a
+                        href={`https://github.com/${userData.username}`}
+                        className="github-button"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         <div style={{marginRight: '10px'}}>
-                          <img src={githubIcon}/>
+                            <img src={githubIcon}/>
                         </div>
-                        <p>Check my GitHub</p></a>
-            
+                        <p>Check my GitHub</p>
+                      </a>
+          )}            
             </div>
         )}
       </div>
@@ -105,6 +107,7 @@ export default function Profile({ apiClient }) {
             <span key={skill} className="skill">{skill}</span>
           ))}
         </div>
+        <p className="projects">Projects</p>
       </div>
     </div>
   );

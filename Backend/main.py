@@ -32,9 +32,9 @@ async def get_current_user(request: Request):
     username = decode_access_token(token)
     return {"username": username}
 
-@app.get("/data")
-async def get_data():
-    with open('data/options.json', 'r') as file:
+@app.get("/data/{name}")
+async def get_data(name: str):
+    with open(f'data/{name}.json', 'r') as file:
         data = json.load(file)
         return data
 
