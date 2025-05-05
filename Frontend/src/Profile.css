@@ -2,8 +2,8 @@
     position: relative; 
     display: flex;
     flex-direction: row;
-    width: 90%;
-    height: 90vh;
+    width: 90%; 
+    padding-bottom: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 27.5px;
 }
@@ -141,6 +141,39 @@
             transform: translateY(-2px);
         }
     }
+    .projects-area{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .projects-text{
+        margin-left: 6px;
+    }
+    .no-project-advise{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        border: 4px dashed var(--color-primary);  
+        border-radius: 20px;
+        height: 200px;
+        width: 95%;
+        margin: 5px;
+        p{
+            color: var(--color-primary);
+            user-select: n;
+        }
+        svg{
+            transition: scale 0.3s ease;
+            scale: 2.5;
+            cursor: pointer;
+        }
+        svg:hover{
+            transition: scale 0.3s ease;
+            scale: 2.8;
+        }
+    }
+    
 }
 
 

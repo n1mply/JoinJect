@@ -107,7 +107,25 @@ export default function Profile({ apiClient }) {
             <span key={skill} className="skill">{skill}</span>
           ))}
         </div>
-        <p className="projects">Projects</p>
+        <p className="projects-text">Projects</p>
+        <div className="projects-area">
+          {!userData.projects[0] ? (
+            <div className="no-project-advise">
+              <svg onClick={()=>{navigate('/create')}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                  d="M12 5V19M5 12H19" 
+                  stroke="var(--color-primary)" 
+                  strokeWidth="2" 
+                  strokeLinecap="round"
+                />
+              </svg>
+              <p>You don't have any projects. Want to create a new?</p>
+            </div>
+          ) : (
+            <p>Logic in proccess..🔨</p>
+          ) 
+          }
+        </div>
       </div>
     </div>
   );

@@ -102,7 +102,6 @@ async def get_projects_by_name(name: str):
             return {'error': "No projects found with this name!"}
     except Exception as e:
         return {'error': str(e)}
-    
 
 async def get_userdata_by_name(name: str):
     try:
