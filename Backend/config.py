@@ -4,4 +4,4 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 GITHUB_CLIENT_ID  = 'Ov23liTWaIqnOCJtBxju'
 GITHUB_CLIENT_SECRET = '5c0affcaaf1a00c735b2146620fcc622a5d3b9ff'
-GITHUB_REDIRECT_URI = "http://192.168.1.10:5173/auth/github/callback"
+GITHUB_REDIRECT_URI = "http://87.228.83.115/auth/github/callback"
