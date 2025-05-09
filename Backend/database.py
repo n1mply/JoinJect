@@ -6,7 +6,7 @@ import re
 
 from uploader import AVATARS_DIR
 
-MONGO_URL = "mongodb://localhost:27017/"
+MONGO_URL = "mongodb://root:3AMaCetGWHAc@mongodb:27017"
 client = AsyncIOMotorClient(MONGO_URL)
 db = client.data
 users_collection = db.users

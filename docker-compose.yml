@@ -1,7 +1,23 @@
+version: '3.8'
+
 networks:
-  dev:
+  dev:  # Общая сеть для всех сервисов
 
 services:
+  mongodb:  # Добавляем MongoDB
+    image: mongo:7.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"  # Порт для подключения с хоста (опционально)
+    volumes:
+      - mongodb_data:/data/db  # Постоянное хранение данных
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root  # Логин для суперпользователя
+      MONGO_INITDB_ROOT_PASSWORD: 3AMaCetGWHAc  # Пароль
+    networks:
+      - dev
+
   nginx:
     image: nginx:stable-alpine
     ports:
@@ -15,11 +31,14 @@ services:
       - frontend
     networks:
       - dev
-    
 
   backend:
     build:
       context: ./Backend
+    environment:  # Передаём URL MongoDB в бэкенд
+      MONGO_URL: "mongodb://root:ваш_пароль@mongodb:27017"
+    depends_on:
+      - mongodb  # Ждём запуска MongoDB
     networks:
       - dev
 
@@ -28,3 +47,6 @@ services:
       context: ./Frontend
     networks:
       - dev
+
+volumes:
+  mongodb_data:  # Том для хранения данных MongoDB
