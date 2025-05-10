@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import uvicorn
-from githubOauth import github_router
+from github_oauth import github_router
 from project_actions import project_router
 from user_actions import user_router
 from auth_actions import auth_router
