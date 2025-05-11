@@ -1,63 +1,70 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import Project from "./Project";
-import { useEffect, useState } from "react";
 import Search from "./Search";
+import PaginationSkrollBar from "./PaginationScrollBar";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import "./Projects.css"
 
 export default function Projects({ apiClient }) {
-  const [projects, setProjects] = useState([]);
+  const {pages} = useParams()
+  const [pagInfo, setPagInfo] = useState();
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredProjects, setFilteredProjects] = useState([]); // Для хранения отфильтрованных проектов
-
-  // Загрузка всех проектов при монтировании компонента
+  const [filteredProjects, setFilteredProjects] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiClient.get("/project/get_all_projects");
-        const projectsInfo = response.data.projects;
-        setProjects(projectsInfo);
-        setFilteredProjects(projectsInfo); // Инициализируем отфильтрованные проекты
+        const pag_projects = await apiClient.get(`/project/get_pag_projects/${pages}`)
+        setPagInfo(pag_projects.data.pagination)
+        console.log(pag_projects.data.pagination.total_pages)
+        setFilteredProjects(pag_projects.data.projects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
     fetchData();
-  }, [apiClient]);
+  }, [apiClient, pages]);
 
-  // Функция для поиска проектов по имени
   const handleSearch = async (query) => {
     try {
-      const response = await apiClient.get(
-        `/project/get_project_by_name/?name=${query}`
-      );
+      if (query) {
+      const response = await apiClient.get(`/project/get_project_by_name/?name=${query}`);
       const projectsInfo = response.data.projects;
-      setFilteredProjects(projectsInfo); // Обновляем отфильтрованные проекты
+      setFilteredProjects(projectsInfo);
+      }
+      else{
+
+      }
+
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
   };
 
-  // Функция для поиска проектов по фильтрам
   const handleFilterSearch = async (selectedSkills, selectedMember) => {
     try {
-      const response = await apiClient.get("/project/get_all_projects");
-      let projectsInfo = response.data.projects;
+        if (selectedMember || selectedSkills){
+        const response = await apiClient.get("/project/get_all_projects");
+        let projectsInfo = response.data.projects;
 
-      // Фильтрация по навыкам (нестрогая)
-      if (selectedSkills.length > 0) {
-        projectsInfo = projectsInfo.filter((project) =>
-          selectedSkills.every((skill) => project.skills.includes(skill))
-        );
+        if (selectedSkills.length > 0) {
+          projectsInfo = projectsInfo.filter((project) =>
+            selectedSkills.every((skill) => project.skills.includes(skill))
+          );
+        }
+        if (selectedMember) {
+          projectsInfo = projectsInfo.filter(
+            (project) => project.members.includes(selectedMember.value)
+          );
+      }
+      }
+      else{
+
       }
 
-      // Фильтрация по участникам (нестрогая)
-      if (selectedMember) {
-        projectsInfo = projectsInfo.filter(
-          (project) => project.members.includes(selectedMember.value)
-        );
-      }
 
-      setFilteredProjects(projectsInfo); // Обновляем отфильтрованные проекты
+      setFilteredProjects(projectsInfo);
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
@@ -66,11 +73,11 @@ export default function Projects({ apiClient }) {
   return (
     <>
       <Search
-        onSearch={handleSearch} // Передаем функцию для поиска по названию
-        onFilterSearch={handleFilterSearch} // Передаем функцию для поиска по фильтрам
-        searchQuery={searchQuery} // Передаем текущий поисковый запрос
-        setSearchQuery={setSearchQuery} // Передаем функцию для обновления поискового запроса
-        apiClient={apiClient} // Передаем apiClient для получения данных фильтров
+        onSearch={handleSearch}
+        onFilterSearch={handleFilterSearch}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        apiClient={apiClient}
       >
         Type name of project
       </Search>
@@ -82,6 +89,7 @@ export default function Projects({ apiClient }) {
           <Project key={projectData.name} {...projectData} />
         ))}
       </div>
+      <PaginationSkrollBar pagInfo={pagInfo} pages={pages}></PaginationSkrollBar>
     </>
   );
 }

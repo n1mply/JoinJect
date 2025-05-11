@@ -51,7 +51,7 @@ export default function App() {
           <Route path="/signup" element={<Register setIsNewUser={setIsNewUser} apiClient={apiClient} />} />
           <Route path="/signup/finish" element={<FinishRegistration apiClient={apiClient}/>}/>
           <Route path="/signin" element={<Login setIsNewUser={setIsNewUser} apiClient={apiClient} />} />
-          <Route path="/projects" element={<Projects apiClient={apiClient} />} />
+          <Route path="/projects/p/:pages" element={<Projects apiClient={apiClient} />} />
           <Route path="/community" element={<Community apiClient={apiClient} />} />
           <Route path="/user/:routerUsername" element={<Profile apiClient={apiClient} />} /> {/* Динамический маршрут для профиля пользователя */}
           <Route path="/project/:projectId" element={<ProjectDetails apiClient={apiClient} />} /> {/* Динамический маршрут для деталей проекта */}

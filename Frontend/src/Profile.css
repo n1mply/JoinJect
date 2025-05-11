@@ -53,6 +53,7 @@
         p{
             font-size: 52px;
             color: #fff;
+            user-select: none;
         }
     }
     .username{

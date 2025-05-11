@@ -25,7 +25,7 @@ export default function Header({ apiClient, isNewUser }) {
       </h1>
       <nav className="header-nav">
         <Link to="/">Home</Link>
-        <Link to="/projects">Projects</Link>
+        <Link to="/projects/p/1">Projects</Link>
         <Link to="/community">Community</Link>
       </nav>
 

@@ -1,5 +1,5 @@
 from access_token_actions import decode_access_token
-from database import create_project, get_projects, get_projects_by_name, get_userdata_by_name
+from database import create_project, get_paginated_projects, get_projects, get_projects_by_name, get_userdata_by_name
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Annotated
@@ -41,3 +41,13 @@ async def get_project_data_with_name(name: str):
     if 'error' in projects:
         raise HTTPException(status_code=404, detail=projects['error'])
     return projects
+
+from fastapi import HTTPException
+
+@project_router.get('/project/get_pag_projects/{page_number}')
+async def get_pag_projects(page_number: int, page_size: int = 5):
+    if page_number < 1:
+        raise HTTPException(status_code=400, detail="This page number can't be exist!")
+    result = await get_paginated_projects(page_number, page_size)
+
+    return result

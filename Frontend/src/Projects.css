@@ -1,0 +1,56 @@
+.pagination-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.pagination-scroll-container {
+    margin-top: 30px;
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 38%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    cursor: grab; 
+    .pagination-scroll {
+        display: flex;
+        gap: 8px;
+        padding: 10px 0;
+        .pag-button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            p{
+                color: var(--bg-secondary);
+                user-select: none;
+            }
+        }
+        .pag-button:hover{
+            transition: all 0.3s ease;
+            transform: translateY(-3px);
+        }
+        .pag-button.active{
+            border: var(--color-primary) 2px solid;
+            background-color: transparent;
+            p{
+            color: var(--color-primary);
+            }
+        }
+        }
+}
+
+
+@media (max-width: 650px) {
+    .pagination-scroll-container {
+        max-width: 80%;
+    }
+}

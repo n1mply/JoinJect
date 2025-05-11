@@ -154,3 +154,24 @@ async def update_user_profile(username: str, update_data: dict):
     except Exception as e:
         print(f"Database error: {e}")
         return {"error": "Database operation failed"}
+    
+
+async def get_paginated_projects(page_number: int, page_size: int):
+    skip_count = (page_number - 1) * page_size
+    projects_cursor = projects_collection.find().skip(skip_count).limit(page_size)
+    projects = await projects_cursor.to_list(length=None)
+    
+    for project in projects:
+        project['_id'] = str(project['_id'])
+
+    total_projects = await projects_collection.count_documents({})
+    return {
+        "projects": projects,
+        "pagination": {
+            "total": total_projects,
+            "page": page_number,
+            "page_size": page_size,
+            "total_pages": (total_projects + page_size - 1) // page_size
+        }
+    }
+    
