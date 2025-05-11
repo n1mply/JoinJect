@@ -1,21 +1,30 @@
-MIT License
+Custom Business License – n1mply Project  
+Version 1.0 – 2025-05-11  
 
 Copyright (c) 2025 n1mply
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Licensed under the following terms:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+PERMITTED USAGE:
+- You may download, copy, modify, and study the code for personal and non-commercial use only.
+- You may fork the repository and submit pull requests, provided the repository remains public and under this license.
+- Educational use, code analysis, and experimentation are allowed.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+RESTRICTED WITHOUT PRIOR WRITTEN PERMISSION:
+- Public deployment (including but not limited to deployment to cloud platforms, SaaS, VPS, web hosting, or any public-facing server)
+- Any commercial use or integration into commercial, paid, or revenue-generating services/products
+- Redistribution of the codebase or its derivatives in executable/compiled or obfuscated form
+- Use of the project name, branding, or logo in derivative works or forks
+
+TERMS:
+1. This license file must be included unmodified in any distributed or derivative version.
+2. Copyright notices must not be removed or altered.
+3. The author retains all rights not explicitly granted by this license.
+
+DISCLAIMER:
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING OUT OF THE USE OR DISTRIBUTION OF THIS SOFTWARE.
+
+CONTACT:
+To request commercial licensing or deployment rights, please contact:
+- Email: dev.n1mply@gmail.com
+- GitHub: https://github.com/n1mply
