@@ -161,7 +161,9 @@
         margin: 5px;
         p{
             color: var(--color-primary);
-            user-select: n;
+            user-select: none;
+            text-align: center;
+            font-size: 14px;
         }
         svg{
             transition: scale 0.3s ease;

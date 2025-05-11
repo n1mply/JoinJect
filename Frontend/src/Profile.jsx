@@ -109,7 +109,7 @@ export default function Profile({ apiClient }) {
         </div>
         <p className="projects-text">Projects</p>
         <div className="projects-area">
-          {!userData.projects[0] ? (
+          {!userData.projects ? (
             <div className="no-project-advise">
               <svg onClick={()=>{navigate('/create')}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path 
