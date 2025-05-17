@@ -58,13 +58,11 @@ export default function Projects({ apiClient }) {
             (project) => project.members.includes(selectedMember.value)
           );
       }
+      setFilteredProjects(projectsInfo);
       }
       else{
 
       }
-
-
-      setFilteredProjects(projectsInfo);
     } catch (error) {
       console.error("Error fetching projects:", error);
     }

@@ -10,12 +10,12 @@ export default function Project({ name, description, skills, members, time_to_co
       <p>{description}</p>
       <div className="skills">
         {skills.map((skill) => (
-          <span key={skill} className="skill">{skill}</span>
+          <span key={`${skill}`} className="skill">{skill}</span>
         ))}
       </div>
       <div className="members">
         {members.map((member) => (
-          <span key={member} className="member">{member}</span>
+          <span key={`${member}-${name}-${Math.random()}`} className="member">{member}</span>
         ))}
       </div>
       <div className="time-wrapper">

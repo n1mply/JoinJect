@@ -140,6 +140,7 @@ export default function Settings({ apiClient }) {
                 <ThemeSwitcher/>
             </div>
         </div>
+
         </>
     );
 }
