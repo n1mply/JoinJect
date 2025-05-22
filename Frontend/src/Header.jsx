@@ -34,7 +34,7 @@ export default function Header({ apiClient, isNewUser }) {
         {!isNewUser ? (
           <>
             <Link to="/create" className="icon-style"><img src={addIcon} alt="Create Project" /></Link>
-            <img src={notification} alt="" />
+            {/* <img src={notification} alt="" /> */}
             <Link to={`/user/${username}`} className="name-style">{username}</Link>
           </>
         ) : (
