@@ -6,6 +6,7 @@
 }
 
 .tech-icon {
+  transition: all ease 0.1s;
   position: absolute;
   opacity: 0;
   animation: fadeIn 0.8s forwards, float 4s ease-in-out infinite;
@@ -26,5 +27,20 @@
   }
   100% {
     transform: translateY(0px) rotate(0deg);
+  }
+}
+
+
+@media (max-width: 650px) {
+  .icons-container{
+    transition: 0.3s top ease;
+    top: 40px;
+  }
+}
+
+@media (max-width: 430px) {
+    .icons-container{
+    transition: 0.3s top ease;
+    top: 80px;
   }
 }
