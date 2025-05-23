@@ -5,7 +5,7 @@ from jose import jwt
 from pydantic import BaseModel, EmailStr
 
 from config import ALGORITHM, SECRET_KEY
-from access_token_actions import create_access_token
+from .access_token_router import create_access_token
 from database import create_user, get_user_data, verify_user
 
 

@@ -1,9 +1,11 @@
+from datetime import datetime
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from bcrypt import hashpw, gensalt, checkpw
 from bson.objectid import ObjectId
 import re
 
+from pydantic import BaseModel
 from uploader import AVATARS_DIR
 
 MONGO_URL = "mongodb://localhost:27017/"
@@ -11,6 +13,13 @@ client = AsyncIOMotorClient(MONGO_URL)
 db = client.data
 users_collection = db.users
 projects_collection = db.projects
+message_collection = db.messages
+
+class Message(BaseModel):
+    sender: str
+    receiver: str
+    text: str
+    timestamp: datetime = datetime.utcnow()
 
 async def create_user(user_data: dict):
     try:
@@ -174,4 +183,52 @@ async def get_paginated_projects(page_number: int, page_size: int):
             "total_pages": (total_projects + page_size - 1) // page_size
         }
     }
+
+
+async def save_message(sender: str, receiver: str, text: str) -> dict:
+    """Сохраняет сообщение в MongoDB."""
+    message = Message(sender=sender, receiver=receiver, text=text)
+    result = await message_collection.insert_one(message.dict())
     
+    # Конвертируем datetime в строку для ответа
+    saved_msg = message.dict()
+    saved_msg['timestamp'] = saved_msg['timestamp'].isoformat()
+    saved_msg['id'] = str(result.inserted_id)
+    
+    return saved_msg
+
+
+async def get_messages_between_users(user1: str, user2: str, limit: int = 100) -> list[dict]:
+    """Возвращает переписку между двумя пользователями."""
+    cursor = message_collection.find({
+        "$or": [
+            {"sender": user1, "receiver": user2},
+            {"sender": user2, "receiver": user1}
+        ]
+    }).sort("timestamp", 1).limit(limit)
+    
+    messages = await cursor.to_list(length=limit)
+    # Конвертируем datetime в строку
+    for msg in messages:
+        msg['timestamp'] = msg['timestamp'].isoformat()
+    return messages
+
+async def get_user_messages(username: str, limit: int = 100) -> list[dict]:
+    """Возвращает все сообщения пользователя (входящие и исходящие)."""
+    cursor = message_collection.find({
+        "$or": [
+            {"sender": username},
+            {"receiver": username}
+        ]
+    }).sort("timestamp", 1).limit(limit)
+    return await cursor.to_list(length=limit)
+
+async def get_last_messages(username: str, limit: int = 10) -> list[dict]:
+    """Возвращает последние `limit` сообщений, связанных с пользователем."""
+    cursor = message_collection.find({
+        "$or": [
+            {"sender": username},
+            {"receiver": username}
+        ]
+    }).sort("timestamp", -1).limit(limit)
+    return await cursor.to_list(length=limit)

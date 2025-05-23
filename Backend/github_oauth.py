@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Response
 from fastapi.responses import RedirectResponse
 import httpx
 import logging
-from access_token_actions import create_access_token
+from routers.access_token_router import create_access_token
 from database import create_user_from_github
 from config import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, GITHUB_REDIRECT_URI
 

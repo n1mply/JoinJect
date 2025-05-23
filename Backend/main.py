@@ -3,10 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 import uvicorn
 from github_oauth import github_router
-from project_actions import project_router
-from user_actions import user_router
-from auth_actions import auth_router
-from access_token_actions import decode_access_token
+from routers.project_router import project_router
+from routers.user_router import user_router
+from routers.auth_router import auth_router
+from routers.websocket_router import ws_router
+from routers.access_token_router import decode_access_token
 
 
 app = FastAPI()
@@ -14,6 +15,7 @@ app.include_router(github_router)
 app.include_router(project_router)
 app.include_router(user_router)
 app.include_router(auth_router)
+app.include_router(ws_router)
 
 
 app.add_middleware(

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import settings from './icons/settings.svg'
-import githubIcon from './icons/github_mark_white.svg'
+import settings from './icons/settings.svg';
+import githubIcon from './icons/github_mark_white.svg';
+import {ChatDots} from "@phosphor-icons/react";
 import "./Profile.css";
 
 export default function Profile({ apiClient }) {
@@ -51,6 +52,9 @@ export default function Profile({ apiClient }) {
         <button className="settings-button" onClick={() => navigate('/settings')}>
           <img src={settings} alt="Settings"/>  
         </button>
+      )}
+      {!isOwner && (
+        <ChatDots className="chat-button" size={40} color="#6582ff" onClick={() => navigate(`/chat/${routerUsername}`)}/> 
       )}
       <div className="base-info-block">
 

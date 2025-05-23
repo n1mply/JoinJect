@@ -5,7 +5,7 @@
     width: 90%; 
     padding-bottom: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 27.5px;
+    border-radius: 15px;
 }
 
 .settings-button {
@@ -23,6 +23,19 @@
 .settings-button:hover {
     scale: 0.45;
     transform: rotate(30deg);   
+}
+
+.chat-button {
+    position: absolute;
+    top: 8px;   
+    right: 8px;
+    transition: scale ease 0.3s;
+    transition: all ease 0.3s;
+    cursor: pointer;
+}
+
+.chat-button:hover {
+    scale: 1.05; 
 }
 
 .base-info-block{

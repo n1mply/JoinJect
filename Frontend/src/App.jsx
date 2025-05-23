@@ -17,6 +17,7 @@ import ProjectDetails from "./ProjectDetails";
 import FinishRegistration from "./FinishRegistration"
 import Settings from "./Settings";
 import Footer from "./Footer";
+import Chat from "./Chat";
 
 export default function App() {
   const [isNewUser, setIsNewUser] = useState(true);
@@ -51,10 +52,11 @@ export default function App() {
           <Route path="/signup" element={<Register setIsNewUser={setIsNewUser} apiClient={apiClient} />} />
           <Route path="/signup/finish" element={<FinishRegistration apiClient={apiClient}/>}/>
           <Route path="/signin" element={<Login setIsNewUser={setIsNewUser} apiClient={apiClient} />} />
-          <Route path="/projects/p/:pages" element={<Projects apiClient={apiClient} />} />
           <Route path="/community" element={<Community apiClient={apiClient} />} />
-          <Route path="/user/:routerUsername" element={<Profile apiClient={apiClient} />} /> {/* Динамический маршрут для профиля пользователя */}
-          <Route path="/project/:projectId" element={<ProjectDetails apiClient={apiClient} />} /> {/* Динамический маршрут для деталей проекта */}
+          <Route path="/user/:routerUsername" element={<Profile apiClient={apiClient} />} />
+          <Route path="/projects/p/:pages" element={<Projects apiClient={apiClient} />} />
+          <Route path="/chat/:routerUsername" element={<Chat apiClient={apiClient} />} />
+          <Route path="/project/:projectId" element={<ProjectDetails apiClient={apiClient} />} /> 
           <Route path="/create" element={<CreateProject apiClient={apiClient} />} />
           <Route path="/auth/github/callback" element={<GitHubCallback apiClient={apiClient} />} />
           <Route path="/settings" element={<Settings apiClient={apiClient}/>}/>
