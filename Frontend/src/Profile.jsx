@@ -54,7 +54,7 @@ export default function Profile({ apiClient }) {
         </button>
       )}
       {!isOwner && (
-        <ChatDots className="chat-button" size={40} color="#6582ff" onClick={() => navigate(`/chat/${routerUsername}`)}/> 
+        <ChatDots className="chat-button" size={40} color="#6582ff" onClick={() => navigate(`/chats/chat/${routerUsername}`)}/> 
       )}
       <div className="base-info-block">
 

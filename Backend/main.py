@@ -2,11 +2,13 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import uvicorn
+from database.messages import create_message_indexes
 from github_oauth import github_router
 from routers.project_router import project_router
 from routers.user_router import user_router
 from routers.auth_router import auth_router
 from routers.websocket_router import ws_router
+from routers.messages_router import msg_router
 from routers.access_token_router import decode_access_token
 
 
@@ -16,7 +18,12 @@ app.include_router(project_router)
 app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(ws_router)
+app.include_router(msg_router)
 
+@app.on_event("startup")
+async def startup():
+    await create_message_indexes()
+    print("Starting up...")
 
 app.add_middleware(
     CORSMiddleware,

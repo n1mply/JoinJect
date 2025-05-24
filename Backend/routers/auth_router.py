@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr
 
 from config import ALGORITHM, SECRET_KEY
 from .access_token_router import create_access_token
-from database import create_user, get_user_data, verify_user
+from database.users import create_user, get_user_data, verify_user
 
 
 auth_router = APIRouter()

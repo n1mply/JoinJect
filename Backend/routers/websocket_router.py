@@ -1,14 +1,10 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException, Cookie, HTTPException
+from fastapi.websockets import WebSocketState
 from .access_token_router import decode_access_token
-from database import save_message, get_messages_between_users
+from database.messages import save_message, get_messages_between_users
 
 ws_router = APIRouter()
 active_connections = {}
-
-
-from fastapi import WebSocket, WebSocketDisconnect, Cookie
-from fastapi import HTTPException
-from fastapi.websockets import WebSocketState
 
 @ws_router.websocket("/ws")
 async def websocket_endpoint(
@@ -23,29 +19,23 @@ async def websocket_endpoint(
 
     try:
         username = decode_access_token(access_token)
-        active_connections[username] = websocket  # Регистрируем соединение
+        active_connections[username] = websocket
 
         while True:
             data = await websocket.receive_json()
-            
-            # Для всех сообщений ожидаем и sender, и receiver
             if "receiver" not in data or "text" not in data:
                 continue  # Пропускаем некорректные сообщения
 
             receiver = data["receiver"]
             text = data["text"]
-
-            # Сохраняем сообщение в БД
             saved_msg = await save_message(username, receiver, text)
 
-            # Отправляем сообщение получателю, если он онлайн
             if receiver in active_connections:
                 await active_connections[receiver].send_json({
                     "type": "new_message",
                     "message": saved_msg
                 })
-
-            # Отправляем копию сообщения отправителю (для синхронизации)
+                
             await websocket.send_json({
                 "type": "new_message",
                 "message": saved_msg

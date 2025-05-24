@@ -1,5 +1,5 @@
 from .access_token_router import decode_access_token
-from database import create_project, get_paginated_projects, get_projects, get_projects_by_name, get_userdata_by_name
+from database.projects import create_project, get_paginated_projects, get_projects, get_projects_by_name
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Annotated

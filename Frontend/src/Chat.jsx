@@ -24,6 +24,20 @@ export default function Chat({ apiClient }) {
   }, [apiClient]);
 
   useEffect(() => {
+      const loadHistory = async () => {
+        try{
+            const res = await apiClient.get(`/messages/${routerUsername}`);
+            console.log(res)
+            setMessages(res.data.history);
+        } catch (error) {
+          console.error("Can't get chat history:", error);
+        }
+
+    };
+    loadHistory();
+  }, [routerUsername]);
+
+  useEffect(() => {
     if (!currentUser || !routerUsername) return;
 
     const wsUrl = `ws://${window.location.hostname}:8000/ws`;
@@ -31,7 +45,6 @@ export default function Chat({ apiClient }) {
 
     ws.current.onopen = () => {
         console.log("WebSocket подключён");
-        // Отправляем инициализационное сообщение с получателем
         ws.current.send(JSON.stringify({
             receiver: routerUsername
         }));
@@ -55,12 +68,10 @@ export default function Chat({ apiClient }) {
     };
   }, [currentUser, routerUsername]);
 
-  // Автоскролл при новых сообщениях
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Отправка сообщения
   const sendMessage = () => {
     if (!messageText.trim() || !ws.current || !currentUser) return;
 

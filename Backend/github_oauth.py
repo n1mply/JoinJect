@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 import httpx
 import logging
 from routers.access_token_router import create_access_token
-from database import create_user_from_github
+from database.users import create_user_from_github
 from config import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, GITHUB_REDIRECT_URI
 
 logger = logging.getLogger(__name__)

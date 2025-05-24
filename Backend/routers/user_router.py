@@ -6,7 +6,7 @@ from jose import jwt
 from pydantic import BaseModel
 from typing import Annotated, Optional
 from annotated_types import MaxLen, MinLen
-from database import get_userdata_by_name, update_user, update_user_profile
+from database.users import get_userdata_by_name, update_user, update_user_profile
 from uploader import AVATARS_DIR, save_avatar
 from config import SECRET_KEY, ALGORITHM
 
@@ -103,13 +103,16 @@ async def edit_profile(
 @user_router.get("/user/avatar/{username}")
 async def get_avatar(username: str):
     user_data = await get_userdata_by_name(username)
-    avatar_path = os.path.join(AVATARS_DIR, user_data["avatar"])
-    if not os.path.exists(avatar_path):
-        return FileResponse("static/default_avatar.png")
-    print(avatar_path)
-    return FileResponse(avatar_path, 
-            headers={
-            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-            "Pragma": "no-cache",
-            "Expires": "0"
-        })
+    try:
+        avatar_path = os.path.join(AVATARS_DIR, user_data["avatar"])
+        if not os.path.exists(avatar_path):
+            return FileResponse("static/default_avatar.png")
+        print(avatar_path)
+        return FileResponse(avatar_path, 
+                headers={
+                "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+                "Pragma": "no-cache",
+                "Expires": "0"
+            })
+    except KeyError:
+        print('This image path not exist!')
