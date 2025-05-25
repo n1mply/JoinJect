@@ -3,11 +3,26 @@ import { useParams, useNavigate } from "react-router-dom";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
 import "./Chat.css";
 
-export default function Chat({ apiClient, currentChat }) {
+export default function Chat({ apiClient, currentChat, onChatsUpdate }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
   const ws = useRef(null); // WebSocket-соединение
+  const messagesEndRef = useRef(null); // Ссылка на конец списка сообщений
+  const messagesAreaRef = useRef(null); // Ссылка на контейнер сообщений
+
+  // Плавный скролл вниз
+  const scrollToBottom = () => {
+    messagesAreaRef.current?.scrollTo({
+      top: messagesAreaRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  // Скролл при загрузке сообщений
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -22,15 +37,14 @@ export default function Chat({ apiClient, currentChat }) {
   }, [apiClient]);
 
   useEffect(() => {
-      const loadHistory = async () => {
-        try{
-            const res = await apiClient.get(`/messages/${currentChat}`);
-            console.log(res)
-            setMessages(res.data.history);
-        } catch (error) {
-          console.error("Can't get chat history:", error);
-        }
-
+    const loadHistory = async () => {
+      try {
+        const res = await apiClient.get(`/messages/${currentChat}`);
+        console.log(res);
+        setMessages(res.data.history);
+      } catch (error) {
+        console.error("Can't get chat history:", error);
+      }
     };
     loadHistory();
   }, [currentChat]);
@@ -42,10 +56,12 @@ export default function Chat({ apiClient, currentChat }) {
     ws.current = new WebSocket(wsUrl);
 
     ws.current.onopen = () => {
-        console.log("WebSocket подключён");
-        ws.current.send(JSON.stringify({
-            receiver: currentChat
-        }));
+      console.log("WebSocket подключён");
+      ws.current.send(
+        JSON.stringify({
+          receiver: currentChat,
+        })
+      );
     };
 
     ws.current.onmessage = (event) => {
@@ -54,6 +70,8 @@ export default function Chat({ apiClient, currentChat }) {
         setMessages(data.messages);
       } else if (data.type === "new_message") {
         setMessages((prev) => [...prev, data.message]);
+      } else if (data.type === "chats_updated") {
+        onChatsUpdate();
       }
     };
 
@@ -64,7 +82,7 @@ export default function Chat({ apiClient, currentChat }) {
     return () => {
       if (ws.current) ws.current.close();
     };
-  }, [currentUser, currentChat]);
+  }, [currentUser, currentChat, onChatsUpdate]);
 
   const sendMessage = () => {
     if (!messageText.trim() || !ws.current || !currentUser) return;
@@ -86,11 +104,21 @@ export default function Chat({ apiClient, currentChat }) {
 
   if (!currentUser) return <div>Loading...</div>;
 
-  if (!currentChat){
-      return (
+  if (!currentChat) {
+    return (
       <div className="chat-start">
-              <p style={{display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>Choose chat, to start</p>
-      </div>) 
+        <p
+          style={{
+            display: "flex",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          Choose chat, to start
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -99,7 +127,7 @@ export default function Chat({ apiClient, currentChat }) {
         <h2>{currentChat}</h2>
       </div>
 
-      <div className="messages-area">
+      <div className="messages-area" ref={messagesAreaRef}>
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -109,11 +137,11 @@ export default function Chat({ apiClient, currentChat }) {
           >
             <p>{msg.text}</p>
             <span className="message-time">
-                {new Date(msg.timestamp).toLocaleTimeString()}
+              {new Date(msg.timestamp).toLocaleTimeString()}
             </span>
           </div>
         ))}
-        <div/>
+        <div ref={messagesEndRef} /> {/* Невидимый элемент для скролла */}
       </div>
 
       <div className="message-input">
@@ -124,7 +152,12 @@ export default function Chat({ apiClient, currentChat }) {
           onKeyPress={handleKeyPress}
           placeholder="Text message..."
         />
-        <PaperPlaneTilt className="send-button" size={40} color="#6582ff" onClick={sendMessage}/>
+        <PaperPlaneTilt
+          className="send-button"
+          size={40}
+          color="#fff"
+          onClick={sendMessage}
+        />
       </div>
     </div>
   );

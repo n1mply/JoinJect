@@ -30,6 +30,12 @@ async def websocket_endpoint(
             text = data["text"]
             saved_msg = await save_message(username, receiver, text)
 
+            for user in [username, receiver]:
+                if user in active_connections:
+                    await active_connections[user].send_json({
+                        "type": "chats_updated"
+                    })
+
             if receiver in active_connections:
                 await active_connections[receiver].send_json({
                     "type": "new_message",

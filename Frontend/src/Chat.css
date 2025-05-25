@@ -36,6 +36,8 @@
   padding: 8px 12px;
   margin-bottom: 10px;
   border-radius: 12px;
+  overflow-wrap: break-word;
+  word-break: break-word;
   p{
     text-align: left;
     margin-right: -5px;
@@ -64,6 +66,8 @@
 
 .message-input {
   display: flex;
+  justify-content: center ;
+  align-items: center;
   gap: 10px;
 }
 
@@ -77,8 +81,20 @@
 .send-button{
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-items: flex-start;
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.send-button:hover{
+  transition: all 0.3s ease;
+  transform: translateX(5px);
+  background-color: var(--color-primary-hover);
 }
 
 .chat-start{
@@ -95,5 +111,13 @@
       border-radius: 40px;
       color: var(--bg-primary);
       user-select: none;
+  }
+}
+
+
+@media (max-width: 612px) {
+  .message {
+    min-width: 200px;
+    min-height: 45px;
   }
 }
