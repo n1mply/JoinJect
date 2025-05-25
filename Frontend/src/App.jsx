@@ -57,7 +57,7 @@ export default function App() {
           <Route path="/chats" element={<Chats apiClient={apiClient} />} />
           <Route path="/user/:routerUsername" element={<Profile apiClient={apiClient} />} />
           <Route path="/projects/p/:pages" element={<Projects apiClient={apiClient} />} />
-          <Route path="/chats/chat/:routerUsername" element={<Chat apiClient={apiClient} />} />
+          {/* <Route path="/chats/chat/:routerUsername" element={<Chat apiClient={apiClient} />} /> */}
           <Route path="/project/:projectId" element={<ProjectDetails apiClient={apiClient} />} /> 
           <Route path="/create" element={<CreateProject apiClient={apiClient} />} />
           <Route path="/auth/github/callback" element={<GitHubCallback apiClient={apiClient} />} />

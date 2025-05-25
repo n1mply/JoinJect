@@ -12,7 +12,7 @@ async def websocket_endpoint(
     access_token: str = Cookie(None)
 ):
     await websocket.accept()
-    
+    print(active_connections)
     if not access_token:
         await websocket.close(code=1008, reason="Not authenticated")
         return
@@ -24,7 +24,7 @@ async def websocket_endpoint(
         while True:
             data = await websocket.receive_json()
             if "receiver" not in data or "text" not in data:
-                continue  # Пропускаем некорректные сообщения
+                continue
 
             receiver = data["receiver"]
             text = data["text"]

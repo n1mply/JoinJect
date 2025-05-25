@@ -51,3 +51,70 @@ async def get_last_messages(username: str, limit: int = 10):
         "$or": [{"sender": username}, {"receiver": username}]
     }).sort("timestamp", -1).limit(limit)
     return await cursor.to_list(length=limit)
+
+
+async def get_user_chats(username: str) -> list[dict]:
+    """
+    Возвращает список чатов пользователя с последним сообщением и временем
+    Формат возвращаемых данных:
+    [
+        {
+            "username": "имя_собеседника",
+            "last_message": "текст последнего сообщения",
+            "last_time": "время последнего сообщения в ISO формате"
+        },
+        ...
+    ]
+    """
+    pipeline = [
+        {
+            "$match": {
+                "$or": [
+                    {"sender": username},
+                    {"receiver": username}
+                ]
+            }
+        },
+        {
+            "$sort": {"timestamp": -1}  # Сначала сортируем по времени
+        },
+        {
+            "$group": {
+                "_id": {
+                    "$cond": [
+                        {"$eq": ["$sender", username]},
+                        "$receiver",
+                        "$sender"
+                    ]
+                },
+                "last_message": {"$first": "$text"},
+                "last_time": {"$first": "$timestamp"},
+                # Дополнительно можно добавить флаг, кто отправил последнее сообщение
+                "is_my_last_message": {
+                    "$first": {
+                        "$eq": ["$sender", username]
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "username": "$_id",
+                "last_message": 1,
+                "last_time": 1,
+                "is_my_last_message": 1,
+                "_id": 0
+            }
+        },
+        {
+            "$sort": {"last_time": -1}  # Сортируем чаты по времени последнего сообщения
+        }
+    ]
+    
+    chats = await message_collection.aggregate(pipeline).to_list(None)
+    
+    # Конвертируем datetime в строку
+    for chat in chats:
+        chat["last_time"] = chat["last_time"].isoformat()
+    
+    return chats

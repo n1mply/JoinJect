@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "@phosphor-icons/react";
+import { PaperPlaneTilt } from "@phosphor-icons/react";
 import "./Chat.css";
 
-export default function Chat({ apiClient }) {
-  const { routerUsername } = useParams();
+export default function Chat({ apiClient, currentChat }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
   const ws = useRef(null); // WebSocket-соединение
-  const messagesEndRef = useRef(null); // Для автоскролла
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -26,7 +24,7 @@ export default function Chat({ apiClient }) {
   useEffect(() => {
       const loadHistory = async () => {
         try{
-            const res = await apiClient.get(`/messages/${routerUsername}`);
+            const res = await apiClient.get(`/messages/${currentChat}`);
             console.log(res)
             setMessages(res.data.history);
         } catch (error) {
@@ -35,10 +33,10 @@ export default function Chat({ apiClient }) {
 
     };
     loadHistory();
-  }, [routerUsername]);
+  }, [currentChat]);
 
   useEffect(() => {
-    if (!currentUser || !routerUsername) return;
+    if (!currentUser || !currentChat) return;
 
     const wsUrl = `ws://${window.location.hostname}:8000/ws`;
     ws.current = new WebSocket(wsUrl);
@@ -46,7 +44,7 @@ export default function Chat({ apiClient }) {
     ws.current.onopen = () => {
         console.log("WebSocket подключён");
         ws.current.send(JSON.stringify({
-            receiver: routerUsername
+            receiver: currentChat
         }));
     };
 
@@ -66,17 +64,13 @@ export default function Chat({ apiClient }) {
     return () => {
       if (ws.current) ws.current.close();
     };
-  }, [currentUser, routerUsername]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [currentUser, currentChat]);
 
   const sendMessage = () => {
     if (!messageText.trim() || !ws.current || !currentUser) return;
 
     const message = {
-      receiver: routerUsername,
+      receiver: currentChat,
       text: messageText,
     };
 
@@ -86,20 +80,23 @@ export default function Chat({ apiClient }) {
     }
   };
 
-  // Отправка по нажатию Enter
   const handleKeyPress = (e) => {
     if (e.key === "Enter") sendMessage();
   };
 
-  if (!currentUser) return <div>Загрузка...</div>;
+  if (!currentUser) return <div>Loading...</div>;
+
+  if (!currentChat){
+      return (
+      <div className="chat-start">
+              <p style={{display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>Choose chat, to start</p>
+      </div>) 
+  }
 
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <button onClick={() => navigate(-1)}>
-          <ArrowLeft size={24} />
-        </button>
-        <h2>Чат с {routerUsername}</h2>
+        <h2>{currentChat}</h2>
       </div>
 
       <div className="messages-area">
@@ -116,7 +113,7 @@ export default function Chat({ apiClient }) {
             </span>
           </div>
         ))}
-        <div ref={messagesEndRef} />
+        <div/>
       </div>
 
       <div className="message-input">
@@ -125,9 +122,9 @@ export default function Chat({ apiClient }) {
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Напишите сообщение..."
+          placeholder="Text message..."
         />
-        <button onClick={sendMessage}>Отправить</button>
+        <PaperPlaneTilt className="send-button" size={40} color="#6582ff" onClick={sendMessage}/>
       </div>
     </div>
   );

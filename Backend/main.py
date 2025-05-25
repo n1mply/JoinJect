@@ -9,6 +9,7 @@ from routers.user_router import user_router
 from routers.auth_router import auth_router
 from routers.websocket_router import ws_router
 from routers.messages_router import msg_router
+from routers.chats_router import chats_router
 from routers.access_token_router import decode_access_token
 
 
@@ -19,6 +20,7 @@ app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(ws_router)
 app.include_router(msg_router)
+app.include_router(chats_router)
 
 @app.on_event("startup")
 async def startup():
